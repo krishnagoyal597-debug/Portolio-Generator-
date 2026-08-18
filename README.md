@@ -1,32 +1,42 @@
-# React + TypeScript + Vite
+# AI Portfolio Generator — Frontend Themes
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A centralized repository containing multiple data-driven portfolio themes for the **AI Portfolio Generator** platform.
 
-Currently, two official plugins are available:
+## 📁 Repository Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```text
+frontend/
+└── themes/
+    ├── brutalism/          # Theme 1: Neo-Brutalist Portfolio Theme
+    └── minimalism/         # Theme 2: Minimalist Editorial Portfolio Theme
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## 🎨 Available Themes
+
+### 1. Neo-Brutalist Theme (`frontend/themes/brutalism`)
+- Bold typography, high contrast colors, thick black borders, offset hard shadows, and vibrant energy.
+- Data-driven frontend React + Vite + TypeScript application.
+
+### 2. Minimalist Theme (`frontend/themes/minimalism`)
+- Clean typography, generous editorial whitespace, subtle gray tones, B&W palette, smooth micro-interactions, modal overlays, and client-side form validation.
+- Data-driven frontend React + Vite + JavaScript + Tailwind CSS application.
+
+---
+
+## 🚀 Running a Theme Locally
+
+Navigate to the specific theme directory and start the Vite dev server:
+
+```bash
+# To run Brutalism Theme:
+cd frontend/themes/brutalism
+npm install
+npm run dev
+
+# To run Minimalism Theme:
+cd frontend/themes/minimalism
+npm install
+npm run dev
+```

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+  
+  body {
+    @apply bg-white text-minimal-dark font-sans overflow-x-hidden;
+  }
+}
+
+/* Custom scrollbar for ultra clean look */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAFAFA;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4D4D4;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A3A3A3;
+}
+
+/* Subtle Hero Ambient Radial Glow */
+.hero-glow-bg {
+  background: radial-gradient(circle at 50% 35%, rgba(243, 244, 246, 1) 0%, rgba(255, 255, 255, 0) 65%);
+}
+
+/* Focus outline accessibility styling */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
