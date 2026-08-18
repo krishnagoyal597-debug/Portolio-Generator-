@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PortfolioForge — From Resume to Remarkable Portfolio</title>
+  <meta name="description" content="AI-Powered Resume-to-Portfolio Generation Platform. Transform plain-text resumes into 6 distinct, stunning personal developer portfolios.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Single Page Application Mount Root -->
+  <div id="app-root"></div>
+
+  <!-- Global Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Live Theme Preview Full Modal -->
+  <div id="preview-modal-overlay" class="modal-overlay" onclick="if(event.target === this) app.closeThemePreviewModal()">
+    <div class="modal-dialog" style="max-width: 960px;">
+      <div class="flex justify-between items-center" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); background: var(--bg-surface);">
+        <div class="flex items-center gap-2">
+          <span style="font-size: 1.1rem; color: var(--primary);">✦</span>
+          <span style="font-weight: 800; font-size: 1rem;">Live Theme Interaction Preview</span>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="app.closeThemePreviewModal()">✕ Close</button>
+      </div>
+      <div id="modal-theme-content" style="max-height: 75vh; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/themes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
