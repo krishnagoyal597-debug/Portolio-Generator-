@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: #000000;
+  }
+}
+
+/* Custom Neo-Brutalism Styles */
+.brutal-border {
+  border: 3px solid #000000;
+}
+
+.brutal-border-lg {
+  border: 4px solid #000000;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 3px 3px 0px #000000;
+}
+
+.brutal-shadow {
+  box-shadow: 5px 5px 0px #000000;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.brutal-shadow-xl {
+  box-shadow: 12px 12px 0px #000000;
+}
+
+.brutal-shadow-yellow {
+  box-shadow: 6px 6px 0px #FFE600;
+}
+
+.brutal-shadow-cyan {
+  box-shadow: 6px 6px 0px #00F0FF;
+}
+
+.brutal-shadow-pink {
+  box-shadow: 6px 6px 0px #FF597B;
+}
+
+.brutal-btn-hover {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brutal-btn-hover:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.brutal-btn-hover:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.brutal-card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.brutal-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 10px 10px 0px #000000;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFDF0;
+  border-left: 3px solid #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FFE600;
+  border: 3px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00F0FF;
+}
