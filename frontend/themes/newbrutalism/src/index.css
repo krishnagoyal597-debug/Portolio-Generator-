@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  * {
+    border-color: #000000;
+  }
+  
+  body {
+    background-color: #f9f9f9;
+    color: #1b1b1b;
+  }
+}
+
+/* Custom Neo-Brutalism Styles from Stitch */
+.brutalist-border {
+  border: 3px solid #000000;
+}
+
+.brutalist-shadow {
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.brutalist-button {
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+.brutalist-button:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px 0px #000000;
+}
+
+.brutalist-button-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  border-top: 3px solid #000000;
+  border-bottom: 3px solid #000000;
+  background-color: #ffeb3b; /* Electric Yellow */
+  padding: 8px 0;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 15s linear infinite;
+}
+
+/* Hide scrollbar for skill pills */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.section-separator {
+  border-top: 3px solid #000000;
+  margin: 0;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f9f9f9;
+  border-left: 3px solid #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffeb3b;
+  border: 3px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #003fd8;
+}

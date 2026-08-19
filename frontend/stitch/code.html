@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arjun Mehta - Full Stack Developer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Hanken+Grotesk:wght@400;500;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#e2e2e2",
+                        "secondary-fixed": "#dde1ff",
+                        "on-secondary-fixed": "#001355",
+                        "surface-container": "#eeeeee",
+                        "tertiary": "#000000",
+                        "secondary": "#003fd8",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#b8c3ff",
+                        "on-background": "#1b1b1b",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#0036bc",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-dim": "#dadada",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-container": "#eaebff",
+                        "on-primary-fixed": "#1b1b1b",
+                        "background": "#f9f9f9",
+                        "surface-tint": "#5e5e5e",
+                        "on-surface-variant": "#4c4546",
+                        "on-primary-container": "#848484",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-primary": "#c6c6c6",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e2e2e2",
+                        "inverse-surface": "#303030",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-tertiary-container": "#848484",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-container": "#2558ff",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "outline": "#7e7576",
+                        "outline-variant": "#cfc4c5",
+                        "tertiary-container": "#1b1b1b",
+                        "primary-container": "#1b1b1b",
+                        "surface-container-low": "#f3f3f3",
+                        "on-surface": "#1b1b1b",
+                        "electric-yellow": "#FFFF00",
+                        "cobalt-blue": "#0047AB"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
+                    },
+                    spacing: {
+                        "border-width": "3px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "64px",
+                        "shadow-offset": "6px",
+                        "unit": "8px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    fontSize: {
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "headline-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-mono": ["14px", { "lineHeight": "1.0", "fontWeight": "500" }]
+                    },
+                    boxShadow: {
+                        'neo': '6px 6px 0px 0px rgba(0,0,0,1)',
+                        'neo-hover': '8px 8px 0px 0px rgba(0,0,0,1)',
+                        'neo-sm': '4px 4px 0px 0px rgba(0,0,0,1)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-image: 
+                linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+                linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-color: #f9f9f9;
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 3px solid #000;
+            border-bottom: 3px solid #000;
+            background-color: #FFFF00;
+            padding: 12px 0;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Brutalist Interactive Elements */
+        .btn-neo {
+            border: 3px solid #000;
+            box-shadow: 6px 6px 0px 0px #000;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+        }
+        .btn-neo:active {
+            transform: translate(6px, 6px);
+            box-shadow: 0px 0px 0px 0px #000;
+        }
+        .btn-neo-hover:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px 0px #000;
+        }
+        
+        .card-neo {
+            border: 3px solid #000;
+            box-shadow: 6px 6px 0px 0px #000;
+            background-color: #fff;
+        }
+        
+        /* Grid Layout */
+        .brutalist-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+</head>
+<body class="text-primary font-body-md antialiased min-h-screen flex selection:bg-electric-yellow selection:text-black">
+<!-- JSON Component: SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col items-center py-8 z-40 bg-surface-container dark:bg-surface-container text-primary dark:text-primary-fixed font-label-mono text-label-mono uppercase docked left-0 h-screen w-20 hidden lg:flex border-r-[3px] border-primary border-r-[3px] border-primary flat no shadows transition-all duration-200">
+<div class="mb-12 rotate-[-90deg] whitespace-nowrap">
+<span class="font-headline-md text-headline-md text-primary font-bold tracking-tight">MEHTA.DEV</span>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center gap-12 w-full">
+<a class="w-full flex justify-center py-4 text-primary opacity-60 hover:opacity-100 hover:bg-primary hover:text-on-primary transition-all duration-200" href="#hero" title="01 / INTRO">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_right_alt</span>
+</a>
+<a class="w-full flex justify-center py-4 text-primary opacity-60 hover:opacity-100 hover:bg-primary hover:text-on-primary transition-all duration-200" href="#skills" title="02 / TECH">
+<span class="material-symbols-outlined">code</span>
+</a>
+<a class="w-full flex justify-center py-4 text-primary opacity-60 hover:opacity-100 hover:bg-primary hover:text-on-primary transition-all duration-200" href="#projects" title="03 / WORK">
+<span class="material-symbols-outlined">terminal</span>
+</a>
+<a class="w-full flex justify-center py-4 text-primary opacity-60 hover:opacity-100 hover:bg-primary hover:text-on-primary transition-all duration-200" href="#contact" title="04 / TALK">
+<span class="material-symbols-outlined">mail</span>
+</a>
+</div>
+<div class="mt-auto writing-vertical-rl transform rotate-180 text-xs font-label-mono text-primary opacity-60">
+            FULL-STACK ARCHITECT
+        </div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="lg:ml-20 w-full min-h-screen flex flex-col">
+<!-- JSON Component: TopNavBar (Mobile Only) -->
+<header class="flex lg:hidden justify-between items-center w-full px-margin-mobile py-4 z-50 bg-surface border-b-[3px] border-primary dark:border-primary-fixed-dim shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sticky top-0">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed tracking-tighter">
+                ARJUN_MEHTA
+            </div>
+<button class="material-symbols-outlined text-3xl">menu</button>
+</header>
+<!-- HERO SECTION -->
+<section class="min-h-[90vh] flex flex-col justify-center px-margin-desktop py-20 relative border-b-[3px] border-primary" id="hero">
+<div class="max-w-7xl mx-auto w-full">
+<div class="inline-block px-4 py-2 bg-electric-yellow border-[3px] border-primary font-label-mono text-label-mono font-bold mb-8 shadow-neo">
+<span class="w-2 h-2 inline-block bg-primary rounded-full animate-pulse mr-2"></span> AVAILABLE FOR INTERNSHIPS
+                </div>
+<h1 class="font-display-lg text-display-lg font-black uppercase leading-none tracking-tighter mb-6">
+                    ARJUN <br/> MEHTA.
+                </h1>
+<div class="brutalist-grid mt-12">
+<div class="col-span-12 md:col-span-6 lg:col-span-8">
+<p class="font-headline-md text-headline-md max-w-2xl">
+                            Full Stack Developer &amp; AI Enthusiast engineering robust systems with sharp logic.
+                        </p>
+</div>
+<div class="col-span-12 md:col-span-6 lg:col-span-4 flex flex-col justify-end items-start md:items-end gap-4 font-label-mono text-label-mono">
+<div class="card-neo p-4 flex items-center gap-4 w-full md:w-auto">
+<span class="material-symbols-outlined text-3xl">location_on</span>
+<div>
+<span class="block text-primary/60">LOCATION</span>
+<span class="font-bold text-lg">NEW DELHI, IN</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MARQUEE -->
+<div class="marquee-container w-full bg-electric-yellow text-primary font-headline-md text-headline-md font-black uppercase tracking-widest py-4">
+<div class="marquee-content">
+                BUILD • SHIP • EXPERIMENT • REPEAT • BUILD • SHIP • EXPERIMENT • REPEAT • BUILD • SHIP • EXPERIMENT • REPEAT • BUILD • SHIP • EXPERIMENT • REPEAT • 
+            </div>
+<div aria-hidden="true" class="marquee-content">
+                BUILD • SHIP • EXPERIMENT • REPEAT • BUILD • SHIP • EXPERIMENT • REPEAT • BUILD • SHIP • EXPERIMENT • REPEAT • BUILD • SHIP • EXPERIMENT • REPEAT • 
+            </div>
+</div>
+<!-- ABOUT SECTION -->
+<section class="px-margin-desktop py-24 border-b-[3px] border-primary bg-surface-container-low" id="about">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-4 mb-16">
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase">ABOUT</h2>
+<div class="h-[3px] bg-primary flex-1"></div>
+<span class="font-label-mono text-label-mono font-bold">01</span>
+</div>
+<div class="brutalist-grid">
+<div class="col-span-12 lg:col-span-7">
+<p class="font-body-lg text-body-lg mb-8 p-8 card-neo bg-white">
+                            I am a software engineer obsessed with clean architecture and performance. Bridging the gap between robust backend systems and intuitive frontend experiences, I build solutions that don't just work—they scale. My approach is pragmatic, direct, and heavily focused on writing maintainable code.
+                        </p>
+</div>
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<div class="card-neo p-6 bg-surface">
+<h3 class="font-label-mono text-label-mono font-bold text-primary/60 mb-2 border-b-[3px] border-primary pb-2">CURRENTLY LEARNING</h3>
+<ul class="font-headline-md text-[24px] font-bold leading-tight mt-4">
+<li class="flex items-center gap-2"><span class="text-electric-yellow font-label-mono">-&gt;</span> Rust &amp; WebAssembly</li>
+<li class="flex items-center gap-2"><span class="text-electric-yellow font-label-mono">-&gt;</span> Advanced MLOps</li>
+</ul>
+</div>
+<div class="card-neo p-6 bg-cobalt-blue text-white">
+<h3 class="font-label-mono text-label-mono font-bold text-white/60 mb-2 border-b-[3px] border-white pb-2">INTERESTED IN</h3>
+<p class="font-headline-md text-[24px] font-bold leading-tight mt-4">Distributed Systems, Generative AI integration, and open-source tooling.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SKILLS SECTION -->
+<section class="px-margin-desktop py-24 border-b-[3px] border-primary" id="skills">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-4 mb-16">
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase">SKILLS_STACK</h2>
+<div class="h-[3px] bg-primary flex-1"></div>
+<span class="font-label-mono text-label-mono font-bold">02</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Languages -->
+<div class="card-neo flex flex-col h-full bg-white group hover:-translate-y-2 transition-transform duration-300">
+<div class="p-4 border-b-[3px] border-primary bg-primary text-white flex justify-between items-center">
+<span class="font-label-mono text-label-mono font-bold">[ LANGUAGES ]</span>
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div class="p-6 flex-1 flex flex-col gap-3 font-headline-md text-[20px] font-bold">
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> JAVA</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> PYTHON</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> JAVASCRIPT</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> C++</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> GO</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> TYPESCRIPT</div>
+</div>
+</div>
+<!-- Frontend -->
+<div class="card-neo flex flex-col h-full bg-white group hover:-translate-y-2 transition-transform duration-300">
+<div class="p-4 border-b-[3px] border-primary bg-primary text-white flex justify-between items-center">
+<span class="font-label-mono text-label-mono font-bold">[ FRONTEND ]</span>
+<span class="material-symbols-outlined">web</span>
+</div>
+<div class="p-6 flex-1 flex flex-col gap-3 font-headline-md text-[20px] font-bold">
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> REACT</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> NEXT.JS</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> TAILWIND CSS</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> REDUX</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> WEBGL</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> THREE.JS</div>
+</div>
+</div>
+<!-- Backend -->
+<div class="card-neo flex flex-col h-full bg-white group hover:-translate-y-2 transition-transform duration-300">
+<div class="p-4 border-b-[3px] border-primary bg-primary text-white flex justify-between items-center">
+<span class="font-label-mono text-label-mono font-bold">[ BACKEND ]</span>
+<span class="material-symbols-outlined">settings_ethernet</span>
+</div>
+<div class="p-6 flex-1 flex flex-col gap-3 font-headline-md text-[20px] font-bold">
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> NODE.JS</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> EXPRESS</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> FLASK</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> FASTAPI</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> REST APIS</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> GRAPHQL</div>
+</div>
+</div>
+<!-- Database & Cloud -->
+<div class="card-neo flex flex-col h-full bg-white group hover:-translate-y-2 transition-transform duration-300">
+<div class="p-4 border-b-[3px] border-primary bg-primary text-white flex justify-between items-center">
+<span class="font-label-mono text-label-mono font-bold">[ DATABASE &amp; CLOUD ]</span>
+<span class="material-symbols-outlined">database</span>
+</div>
+<div class="p-6 flex-1 flex flex-col gap-3 font-headline-md text-[20px] font-bold">
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> POSTGRESQL</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> MONGODB</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> REDIS</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> AWS (S3, EC2)</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> GOOGLE CLOUD</div>
+</div>
+</div>
+<!-- DevOps & Tools -->
+<div class="card-neo flex flex-col h-full bg-white group hover:-translate-y-2 transition-transform duration-300">
+<div class="p-4 border-b-[3px] border-primary bg-primary text-white flex justify-between items-center">
+<span class="font-label-mono text-label-mono font-bold">[ DEVOPS &amp; TOOLS ]</span>
+<span class="material-symbols-outlined">build</span>
+</div>
+<div class="p-6 flex-1 flex flex-col gap-3 font-headline-md text-[20px] font-bold">
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> DOCKER</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> KUBERNETES</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> CI/CD</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> GIT</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> FIGMA</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> POSTMAN</div>
+</div>
+</div>
+<!-- AI/ML -->
+<div class="card-neo flex flex-col h-full bg-white group hover:-translate-y-2 transition-transform duration-300">
+<div class="p-4 border-b-[3px] border-primary bg-primary text-white flex justify-between items-center">
+<span class="font-label-mono text-label-mono font-bold">[ AI/ML ]</span>
+<span class="material-symbols-outlined">memory</span>
+</div>
+<div class="p-6 flex-1 flex flex-col gap-3 font-headline-md text-[20px] font-bold">
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> PYTORCH</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> TENSORFLOW</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> LANGCHAIN</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> OPENAI API</div>
+<div class="h-[3px] bg-primary/10 w-full"></div>
+<div class="flex items-center gap-2"><span class="text-primary/40">-</span> HUGGINGFACE</div>
+</div>
+</div>
+</div>
+</div>
+</section><!-- EXPERIENCE SECTION -->
+<section class="px-margin-desktop py-24 border-b-[3px] border-primary bg-surface-container-low" id="experience">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-4 mb-16">
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase">EXPERIENCE</h2>
+<div class="h-[3px] bg-primary flex-1"></div>
+<span class="font-label-mono text-label-mono font-bold">03</span>
+</div>
+<div class="flex flex-col gap-8">
+<!-- Job 1 -->
+<div class="card-neo p-8 bg-white">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div>
+<h3 class="font-headline-md text-headline-md font-bold uppercase">Software Development Intern</h3>
+<p class="font-label-mono text-label-mono text-primary/60">TECHNOVA LABS</p>
+</div>
+<div class="font-label-mono text-label-mono bg-electric-yellow px-4 py-2 border-[3px] border-primary shadow-neo">
+                        MAY 2026 - JULY 2026
+                    </div>
+</div>
+<ul class="font-body-md text-body-md flex flex-col gap-3">
+<li class="flex items-start gap-3"><span class="text-primary font-bold">[+]</span> Developed responsive web interfaces</li>
+<li class="flex items-start gap-3"><span class="text-primary font-bold">[+]</span> Built REST APIs</li>
+<li class="flex items-start gap-3"><span class="text-primary font-bold">[+]</span> Improved application performance</li>
+<li class="flex items-start gap-3"><span class="text-primary font-bold">[+]</span> Integrated third-party APIs</li>
+</ul>
+</div>
+<!-- Job 2 -->
+<div class="card-neo p-8 bg-white">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div>
+<h3 class="font-headline-md text-headline-md font-bold uppercase">Frontend Developer Intern</h3>
+<p class="font-label-mono text-label-mono text-primary/60">PIXELFORGE</p>
+</div>
+<div class="font-label-mono text-label-mono bg-white px-4 py-2 border-[3px] border-primary shadow-neo">
+                        JAN 2026 - APR 2026
+                    </div>
+</div>
+<ul class="font-body-md text-body-md flex flex-col gap-3">
+<li class="flex items-start gap-3"><span class="text-primary font-bold">[+]</span> Built reusable React components</li>
+<li class="flex items-start gap-3"><span class="text-primary font-bold">[+]</span> Collaborated with designers</li>
+<li class="flex items-start gap-3"><span class="text-primary font-bold">[+]</span> Improved mobile responsiveness</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- CERTIFICATIONS SECTION -->
+<section class="px-margin-desktop py-24 border-b-[3px] border-primary" id="certifications">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-4 mb-16">
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase">CERTIFICATIONS &amp; ACHIEVEMENTS</h2>
+<div class="h-[3px] bg-primary flex-1"></div>
+<span class="font-label-mono text-label-mono font-bold">04</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="card-neo p-6 bg-white hover:bg-electric-yellow transition-colors duration-200">
+<span class="material-symbols-outlined text-3xl mb-4">verified</span>
+<h3 class="font-headline-md text-[24px] font-bold uppercase">HackerRank Python — 5 Star</h3>
+</div>
+<div class="card-neo p-6 bg-white hover:bg-electric-yellow transition-colors duration-200">
+<span class="material-symbols-outlined text-3xl mb-4">school</span>
+<h3 class="font-headline-md text-[24px] font-bold uppercase">NPTEL Certification — Programming Fundamentals</h3>
+</div>
+<div class="card-neo p-6 bg-white hover:bg-electric-yellow transition-colors duration-200">
+<span class="material-symbols-outlined text-3xl mb-4">trophy</span>
+<h3 class="font-headline-md text-[24px] font-bold uppercase">Hackathon Finalist — AI Innovation Challenge 2026</h3>
+</div>
+<div class="card-neo p-6 bg-white hover:bg-electric-yellow transition-colors duration-200">
+<span class="material-symbols-outlined text-3xl mb-4">terminal</span>
+<h3 class="font-headline-md text-[24px] font-bold uppercase">100+ DSA Problems Solved</h3>
+</div>
+<div class="card-neo p-6 bg-white hover:bg-electric-yellow transition-colors duration-200">
+<span class="material-symbols-outlined text-3xl mb-4">cloud</span>
+<h3 class="font-headline-md text-[24px] font-bold uppercase">Google Cloud Fundamentals</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- PROJECTS SECTION -->
+<section class="px-margin-desktop py-24 border-b-[3px] border-primary bg-surface-container-low" id="projects">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-4 mb-16">
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase">SELECTED_WORKS</h2>
+<div class="h-[3px] bg-primary flex-1"></div>
+<span class="font-label-mono text-label-mono font-bold">05</span>
+</div>
+<div class="flex flex-col gap-16">
+<!-- Project 1 -->
+<article class="card-neo bg-white grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
+<div class="lg:col-span-5 border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-primary bg-surface p-8 flex flex-col justify-between">
+<div>
+<div class="flex gap-2 flex-wrap mb-6">
+<span class="font-label-mono text-[12px] px-2 py-1 border-[2px] border-primary bg-electric-yellow">REACT</span>
+<span class="font-label-mono text-[12px] px-2 py-1 border-[2px] border-primary bg-white">NODE.JS</span>
+<span class="font-label-mono text-[12px] px-2 py-1 border-[2px] border-primary bg-white">OPENAI API</span>
+</div>
+<h3 class="font-headline-md text-headline-md font-bold mb-4 uppercase">IntervIQ</h3>
+<p class="font-body-md text-body-md mb-8">An AI-powered mock interview platform that simulates technical interviews and provides real-time feedback on code quality and communication.</p>
+</div>
+<a class="btn-neo btn-neo-hover inline-flex items-center justify-center gap-2 bg-primary text-white font-label-mono text-label-mono font-bold py-4 px-6 w-full lg:w-fit" href="#">
+                                VIEW PROJECT <span class="material-symbols-outlined">arrow_outward</span>
+</a>
+</div>
+<div class="lg:col-span-7 bg-surface-dim relative h-64 lg:h-auto p-4 flex items-center justify-center overflow-hidden group">
+<div class="absolute inset-0 bg-[url('placeholder')] bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="A clean, high-contrast dashboard UI for an AI interview platform. It features a dark mode code editor on the left and a minimalist video feed placeholder on the right, punctuated with sharp electric yellow notification badges and stark white brutalist buttons."></div>
+<div class="absolute inset-0 border-[3px] border-primary m-4 pointer-events-none"></div>
+</div>
+</article>
+<!-- Project 2 -->
+<article class="card-neo bg-white grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
+<div class="lg:col-span-7 bg-surface-dim relative h-64 lg:h-auto p-4 flex items-center justify-center overflow-hidden group order-2 lg:order-1 border-t-[3px] lg:border-t-0 lg:border-r-[3px] border-primary">
+<div class="absolute inset-0 bg-[url('placeholder')] bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="A modern web application interface for civic reporting. The layout is map-centric with rigid black borders separating a list of community issues from the interactive map. The typography is bold and utilitarian, using a bright cobalt blue accent color for map pins and action buttons."></div>
+<div class="absolute inset-0 border-[3px] border-primary m-4 pointer-events-none"></div>
+</div>
+<div class="lg:col-span-5 bg-surface p-8 flex flex-col justify-between order-1 lg:order-2">
+<div>
+<div class="flex gap-2 flex-wrap mb-6">
+<span class="font-label-mono text-[12px] px-2 py-1 border-[2px] border-primary bg-cobalt-blue text-white">NEXT.JS</span>
+<span class="font-label-mono text-[12px] px-2 py-1 border-[2px] border-primary bg-white">POSTGRESQL</span>
+<span class="font-label-mono text-[12px] px-2 py-1 border-[2px] border-primary bg-white">MAPBOX</span>
+</div>
+<h3 class="font-headline-md text-headline-md font-bold mb-4 uppercase">CivicSathi</h3>
+<p class="font-body-md text-body-md mb-8">A hyper-local civic issue tracking system connecting citizens with municipal authorities, featuring spatial querying and automated status updates.</p>
+</div>
+<a class="btn-neo btn-neo-hover inline-flex items-center justify-center gap-2 bg-primary text-white font-label-mono text-label-mono font-bold py-4 px-6 w-full lg:w-fit" href="#">
+                                VIEW PROJECT <span class="material-symbols-outlined">arrow_outward</span>
+</a>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- CONTACT SECTION -->
+<section class="px-margin-desktop py-24 bg-electric-yellow" id="contact">
+<div class="max-w-7xl mx-auto brutalist-grid">
+<div class="col-span-12 lg:col-span-6">
+<h2 class="font-display-lg text-[80px] lg:text-[120px] font-black uppercase leading-[0.85] tracking-tighter mb-8">
+                        LET'S<br/>BUILD<br/>SOMETHING.
+                    </h2>
+<p class="font-headline-md text-[24px] font-bold max-w-md mb-12">
+                        Currently open for internships and freelance opportunities. Drop a line.
+                    </p>
+<div class="flex gap-4">
+<a class="btn-neo btn-neo-hover bg-white p-4 flex items-center justify-center w-16 h-16" href="#" title="GitHub">
+<span class="material-symbols-outlined text-3xl">code</span>
+</a>
+<a class="btn-neo btn-neo-hover bg-cobalt-blue text-white p-4 flex items-center justify-center w-16 h-16" href="#" title="LinkedIn">
+<span class="material-symbols-outlined text-3xl">work</span>
+</a>
+<a class="btn-neo btn-neo-hover bg-primary text-white p-4 flex items-center justify-center w-16 h-16" href="#" title="Twitter/X">
+<span class="material-symbols-outlined text-3xl">chat</span>
+</a>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-6 mt-12 lg:mt-0">
+<form class="card-neo bg-white p-8 flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-mono text-label-mono font-bold">NAME / ALIAS</label>
+<input class="w-full bg-surface-container border-[3px] border-primary p-4 font-body-md focus:outline-none focus:bg-electric-yellow transition-colors" placeholder="John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-mono text-label-mono font-bold">COMMLINK (EMAIL)</label>
+<input class="w-full bg-surface-container border-[3px] border-primary p-4 font-body-md focus:outline-none focus:bg-electric-yellow transition-colors" placeholder="john@example.com" type="email"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-mono text-label-mono font-bold">MESSAGE PAYLOAD</label>
+<textarea class="w-full bg-surface-container border-[3px] border-primary p-4 font-body-md focus:outline-none focus:bg-electric-yellow transition-colors" placeholder="Project details..." rows="4"></textarea>
+</div>
+<button class="btn-neo btn-neo-hover bg-primary text-white font-label-mono text-label-mono font-bold py-6 px-8 mt-4 text-center text-lg" type="submit">
+                            TRANSMIT MESSAGE
+                        </button>
+</form>
+</div>
+</div>
+</section>
+<!-- JSON Component: Footer -->
+<footer class="w-full mt-20 flex flex-col md:flex-row justify-between items-center gap-gutter bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container font-label-mono text-label-mono full-width p-12 border-t-[3px] border-primary flat">
+<div class="font-headline-lg text-headline-lg text-on-primary font-black tracking-tighter">
+                ARJUN MEHTA
+            </div>
+<div class="flex flex-wrap gap-8 justify-center">
+<a class="text-on-primary opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">GITHUB</a>
+<a class="text-on-primary opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">LINKEDIN</a>
+<a class="text-on-primary opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">RESUME</a>
+</div>
+<div class="text-center md:text-right opacity-60 text-[12px]">
+                © 2024 ARJUN MEHTA. NO TEMPLATES USED.
+            </div>
+</footer>
+</main>
+</body></html>
