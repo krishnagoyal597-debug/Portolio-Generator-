@@ -5,7 +5,7 @@
 class PortfolioForgeApp {
   constructor() {
     this.currentUser = JSON.parse(localStorage.getItem('pf_user')) || null;
-    this.currentThemeMode = localStorage.getItem('pf_theme_mode') || 'dark';
+    this.currentThemeMode = localStorage.getItem('pf_theme_mode') || 'light';
     
     // Active Creation Wizard State
     this.currentWizardStep = 1;
@@ -80,10 +80,11 @@ class PortfolioForgeApp {
     this.currentThemeMode = mode;
     localStorage.setItem('pf_theme_mode', mode);
     document.documentElement.setAttribute('data-theme', mode);
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    if (themeBtn) {
-      themeBtn.innerHTML = mode === 'dark' ? '☀️ Light' : '🌙 Dark';
-    }
+    const themeBtns = document.querySelectorAll('.mode-toggle-btn');
+    themeBtns.forEach(btn => {
+      btn.innerHTML = mode === 'dark' ? '☀️' : '🌙';
+      btn.title = mode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    });
   }
 
   toggleThemeMode() {
@@ -183,13 +184,13 @@ class PortfolioForgeApp {
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     PAGE RENDERERS
+     1. PUBLIC LANDING PAGE (Clean, Minimal, Focused SaaS)
      ────────────────────────────────────────────────────────────────────────── */
 
   renderLandingPage() {
     const root = document.getElementById('app-root');
     root.innerHTML = `
-      <!-- Sticky Navigation Bar -->
+      <!-- Simple Public Navigation Bar -->
       <nav class="navbar">
         <div class="container nav-container">
           <a href="#home" class="brand-logo">
@@ -197,280 +198,87 @@ class PortfolioForgeApp {
             <span>PortfolioForge</span>
           </a>
 
-          <ul class="nav-menu" style="display: flex;">
-            <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-            <li><a href="#themes" class="nav-link">Themes</a></li>
-            <li><a href="#features" class="nav-link">Features</a></li>
-          </ul>
-
           <div class="flex items-center gap-3">
-            <button id="theme-toggle-btn" class="btn btn-ghost btn-sm" onclick="app.toggleThemeMode()">
-              ${this.currentThemeMode === 'dark' ? '☀️ Light' : '🌙 Dark'}
-            </button>
             ${this.currentUser ? `
-              <a href="#dashboard" class="btn btn-secondary btn-sm">Dashboard</a>
-              <a href="#create/1" class="btn btn-primary btn-sm">+ Create Portfolio</a>
+              <a href="#dashboard" class="btn btn-primary btn-sm">Dashboard →</a>
             ` : `
-              <a href="#login" class="btn btn-ghost btn-sm">Sign In</a>
-              <a href="#create/1" class="btn btn-primary btn-sm">Build My Portfolio →</a>
+              <a href="#login" class="btn btn-ghost btn-sm">Login</a>
+              <a href="#signup" class="btn btn-primary btn-sm">Sign Up</a>
             `}
           </div>
         </div>
       </nav>
 
-      <!-- Hero Section -->
-      <section class="hero-section">
+      <!-- Clean Focused Hero Section -->
+      <section class="hero-section" style="min-height: calc(100vh - 4.25rem); display: flex; align-items: center;">
         <div class="hero-glow-1"></div>
         <div class="hero-glow-2"></div>
         
         <div class="container">
           <div class="hero-grid">
             <div>
-              <div class="badge badge-glow">
-                ✦ AI-Powered Resume-to-Portfolio Engine
+              <div class="badge badge-glow" style="margin-bottom: 1rem;">
+                ✦ Resume to Portfolio Generator
               </div>
               <h1 class="heading-display hero-title">
-                Turn Your Resume Into a Portfolio That <span class="text-gradient">Stands Out.</span>
+                Turn Your Resume Into <br>a <span class="text-gradient">Professional Portfolio</span>
               </h1>
               <p class="hero-subtitle">
-                Upload your plain-text resume, let AI extract your engineering impact, select from six radically different visual systems, and generate a live deployable portfolio in minutes.
+                Upload your resume, let AI structure your information, choose a theme, and generate your portfolio website in minutes.
               </p>
+              
               <div class="flex items-center gap-4 flex-wrap">
-                <a href="#create/1" class="btn btn-primary btn-lg">
-                  ⚡ Build My Portfolio Free
+                <a href="${this.currentUser ? '#dashboard' : '#signup'}" class="btn btn-primary btn-lg">
+                  Create My Portfolio →
                 </a>
-                <a href="#themes" class="btn btn-secondary btn-lg">
-                  Explore 6 Themes
-                </a>
+                ${!this.currentUser ? `
+                  <a href="#login" class="btn btn-secondary btn-lg">
+                    Sign In
+                  </a>
+                ` : `
+                  <a href="#create/1" class="btn btn-secondary btn-lg">
+                    Start Creation Wizard
+                  </a>
+                `}
               </div>
-              <div class="flex items-center gap-6" style="margin-top: 2.5rem; font-size: 0.85rem; color: #94a3b8;">
-                <span class="flex items-center gap-2">✓ No Coding Required</span>
-                <span class="flex items-center gap-2">✓ Export Clean HTML</span>
-                <span class="flex items-center gap-2">✓ ATS Analysis Included</span>
+
+              <div style="margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; font-weight: 500;">
+                <span class="flex items-center gap-2">
+                  <span style="color: #10b981;">●</span> Simple &nbsp;•&nbsp; 
+                  <span style="color: #6366f1;">●</span> AI-Powered &nbsp;•&nbsp; 
+                  <span style="color: #38bdf8;">●</span> Fast
+                </span>
               </div>
             </div>
 
-            <!-- Hero Miniature Theme Stack -->
-            <div class="hero-mockup-stack">
-              <!-- Bento Card Preview -->
-              <div class="mini-preview-card mini-card-1">
-                <div style="font-size:0.7rem; font-weight:800; color:#6366f1; text-transform:uppercase; margin-bottom:0.25rem;">Bento Grid // 02</div>
-                <div style="font-weight:800; font-size:1.1rem;">Anshika Bansal</div>
-                <div style="font-size:0.75rem; color:#64748b; margin-bottom:0.75rem;">Computer Science & AI</div>
-                <div style="display:flex; gap:0.3rem; flex-wrap:wrap;">
-                  <span style="font-size:0.65rem; background:#e0e7ff; color:#4338ca; padding:0.15rem 0.4rem; border-radius:4px; font-weight:700;">Python</span>
-                  <span style="font-size:0.65rem; background:#e0e7ff; color:#4338ca; padding:0.15rem 0.4rem; border-radius:4px; font-weight:700;">FastAPI</span>
-                  <span style="font-size:0.65rem; background:#e0e7ff; color:#4338ca; padding:0.15rem 0.4rem; border-radius:4px; font-weight:700;">React</span>
+            <!-- Single Polished Hero Portfolio Preview (Clean & Focused) -->
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <div class="card" style="width: 100%; max-width: 440px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px; padding: 2rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); color: #fff;">
+                <div class="flex justify-between items-center" style="margin-bottom: 1.25rem;">
+                  <span class="badge badge-primary" style="font-size: 0.7rem;">Live Portfolio Preview</span>
+                  <span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">● Online</span>
                 </div>
-              </div>
-
-              <!-- Brutalist Card Preview -->
-              <div class="mini-preview-card mini-card-2">
-                <div style="font-size:0.65rem; background:#fff; color:#000; display:inline-block; padding:0.1rem 0.3rem; font-weight:900;">VOL. 26</div>
-                <div style="font-size:1.2rem; font-weight:900; line-height:1; margin:0.4rem 0;">ANSHIKA B.</div>
-                <div style="font-size:0.75rem; font-family:monospace; border-top:1px solid #fff; padding-top:0.3rem;">// AI ENGINEER</div>
-              </div>
-
-              <!-- Terminal Card Preview -->
-              <div class="mini-preview-card mini-card-3">
-                <div style="font-size:0.65rem; color:#64748b; margin-bottom:0.3rem;">> SYSTEM_INITIALIZE</div>
-                <div style="font-size:0.9rem; font-weight:700; color:#fff;">> user.profile_loaded</div>
-                <div style="font-size:0.75rem; color:#00ff88; margin-top:0.3rem;">$ gemini --generate-portfolio [OK]</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- 5-Step Workflow Section -->
-      <section id="how-it-works" style="padding: 6rem 0; background: var(--bg-surface); border-bottom: 1px solid var(--border-color);">
-        <div class="container">
-          <div style="text-align: center; max-width: 680px; margin: 0 auto 3.5rem auto;">
-            <span class="badge badge-primary">Structured Workflow</span>
-            <h2 class="heading-display" style="font-size: 2.4rem; margin-top: 0.75rem;">From Raw Resume to Live Website in 5 Steps</h2>
-            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Our deterministic pipeline extracts, validates, structures, and renders your career history into a high-impact portfolio.</p>
-          </div>
-
-          <div class="step-pipeline">
-            <div class="step-card">
-              <div class="step-number">01</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem;">Upload Resume</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Drop your plain-text .txt resume file. Quick parsing extracts all text cleanly.</p>
-            </div>
-            <div class="step-card">
-              <div class="step-number">02</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem;">AI Diagnostics</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Get an instant 0-100 quality score and targeted feedback on missing project metrics.</p>
-            </div>
-            <div class="step-card">
-              <div class="step-number">03</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem;">Review & Edit</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Polish your skills, project repository links, and career achievements with reactive tabs.</p>
-            </div>
-            <div class="step-card">
-              <div class="step-number">04</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem;">Theme Selection</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Select from 6 radically different visual systems matched to your personal vibe.</p>
-            </div>
-            <div class="step-card">
-              <div class="step-number">05</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem;">Export & Publish</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Download standalone production HTML or share your live portfolio link anywhere.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Six Themes Showcase Section -->
-      <section id="themes" style="padding: 6rem 0; background: var(--bg-primary);">
-        <div class="container">
-          <div style="text-align: center; max-width: 720px; margin: 0 auto 4rem auto;">
-            <span class="badge badge-primary">Visual Identity</span>
-            <h2 class="heading-display" style="font-size: 2.5rem; margin-top: 0.75rem;">Your Story. Your Style.</h2>
-            <p style="color: var(--text-secondary); font-size: 1.05rem; margin-top: 0.5rem;">
-              We don't just change button colors. Every theme uses a completely unique layout, font system, card structure, and visual rhythm.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-3 lg-grid-cols-2 md-grid-cols-1 gap-6">
-            
-            <!-- 1. Brutalist Card -->
-            <div class="theme-showcase-card">
-              <div class="theme-preview-box preview-brutalist">
-                <span style="font-size:0.65rem; background:#000; color:#fff; padding:0.15rem 0.4rem; font-weight:900; width:max-content;">RAW / EXPRESSIVE</span>
-                <div style="font-size:1.6rem; font-weight:900; text-transform:uppercase; margin:0.4rem 0;">JOHN DOE</div>
-                <div style="font-size:0.75rem; border:2px solid #000; padding:0.25rem 0.5rem; width:max-content; font-weight:700;">// ARCHITECT</div>
-              </div>
-              <div style="padding: 1.5rem;">
-                <div class="flex items-center justify-between" style="margin-bottom:0.4rem;">
-                  <h3 style="font-weight: 800; font-size: 1.25rem;">01. Brutalist</h3>
-                  <span class="badge" style="background:#000; color:#fff;">High Contrast</span>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Heavy black borders, oversized typography, raw asymmetry, and zero rounded corners for high impact.
+                
+                <div style="font-weight: 800; font-size: 1.5rem; margin-bottom: 0.25rem; color: #fff;">Anshika Bansal</div>
+                <div style="font-size: 0.85rem; color: #818cf8; font-weight: 600; margin-bottom: 1rem;">Computer Science & AI Engineer</div>
+                
+                <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 1.25rem;">
+                  Specializing in machine learning, high-performance distributed systems, and intelligent full-stack architectures.
                 </p>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="app.openThemePreviewModal('brutalist')">Preview Live</button>
-                  <a href="#create/4" class="btn btn-primary btn-sm" onclick="app.selectedTheme='brutalist'">Use Theme</a>
-                </div>
-              </div>
-            </div>
 
-            <!-- 2. Bento Grid Card -->
-            <div class="theme-showcase-card">
-              <div class="theme-preview-box preview-bento">
-                <div style="display:grid; grid-template-columns: 2fr 1fr; gap:0.5rem; width:100%;">
-                  <div style="background:#6366f1; color:#fff; padding:0.6rem; border-radius:12px; font-size:0.75rem; font-weight:700;">
-                    <div>Alex Sharma</div>
-                    <div style="font-size:0.6rem; opacity:0.8;">Full-Stack Engineer</div>
-                  </div>
-                  <div style="background:#fff; border:1px solid #cbd5e1; padding:0.6rem; border-radius:12px; font-size:0.65rem; font-weight:700;">
-                    GitHub ↗
+                <div style="margin-bottom: 1.25rem;">
+                  <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin-bottom: 0.5rem;">Extracted Core Stack</div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                    <span style="font-size: 0.75rem; background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 600;">Python</span>
+                    <span style="font-size: 0.75rem; background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 600;">FastAPI</span>
+                    <span style="font-size: 0.75rem; background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 600;">React</span>
+                    <span style="font-size: 0.75rem; background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 600;">TensorFlow</span>
                   </div>
                 </div>
-              </div>
-              <div style="padding: 1.5rem;">
-                <div class="flex items-center justify-between" style="margin-bottom:0.4rem;">
-                  <h3 style="font-weight: 800; font-size: 1.25rem;">02. Bento Grid</h3>
-                  <span class="badge badge-primary">Popular</span>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Modular grid blocks, clean hierarchy, compact information layout, and modern SaaS dashboard aesthetic.
-                </p>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="app.openThemePreviewModal('bento')">Preview Live</button>
-                  <a href="#create/4" class="btn btn-primary btn-sm" onclick="app.selectedTheme='bento'">Use Theme</a>
-                </div>
-              </div>
-            </div>
 
-            <!-- 3. Minimal Editorial Card -->
-            <div class="theme-showcase-card">
-              <div class="theme-preview-box preview-minimal">
-                <div style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:#78716c;">MINIMAL / REFINED</div>
-                <div style="font-size:1.5rem; font-style:italic; margin:0.3rem 0;">Elena Vance</div>
-                <div style="font-size:0.75rem; color:#78716c;">Selected Works & Writings</div>
-              </div>
-              <div style="padding: 1.5rem;">
-                <div class="flex items-center justify-between" style="margin-bottom:0.4rem;">
-                  <h3 style="font-weight: 800; font-size: 1.25rem;">03. Minimal Editorial</h3>
-                  <span class="badge" style="background:#e7e5e4; color:#44403c;">Sophisticated</span>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Elegant serif typography, generous breathing room, hairline dividers, and magazine-style elegance.
-                </p>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="app.openThemePreviewModal('minimal')">Preview Live</button>
-                  <a href="#create/4" class="btn btn-primary btn-sm" onclick="app.selectedTheme='minimal'">Use Theme</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 4. Spatial UI Card -->
-            <div class="theme-showcase-card">
-              <div class="theme-preview-box preview-spatial">
-                <div style="background:#fff; padding:0.75rem; border-radius:16px; box-shadow:0 15px 25px rgba(0,0,0,0.08); width:85%; margin:0 auto; text-align:center;">
-                  <div style="font-weight:800; font-size:0.9rem; color:#1e1b4b;">Spatial Depth</div>
-                  <div style="font-size:0.7rem; color:#6366f1;">Floating UI Layers</div>
-                </div>
-              </div>
-              <div style="padding: 1.5rem;">
-                <div class="flex items-center justify-between" style="margin-bottom:0.4rem;">
-                  <h3 style="font-weight: 800; font-size: 1.25rem;">04. Spatial UI</h3>
-                  <span class="badge" style="background:#e0f2fe; color:#0284c7;">3D Canvas</span>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Layered cards with deep ambient shadows, floating elevation, and fluid spatial hierarchy.
-                </p>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="app.openThemePreviewModal('spatial')">Preview Live</button>
-                  <a href="#create/4" class="btn btn-primary btn-sm" onclick="app.selectedTheme='spatial'">Use Theme</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 5. Glassmorphic Card -->
-            <div class="theme-showcase-card">
-              <div class="theme-preview-box preview-glass">
-                <div style="background:rgba(255,255,255,0.08); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); padding:0.75rem; border-radius:14px; text-align:center;">
-                  <div style="font-weight:800; font-size:0.95rem; color:#fff;">Glass & Light</div>
-                  <div style="font-size:0.7rem; color:#c084fc;">Frosted Luminescence</div>
-                </div>
-              </div>
-              <div style="padding: 1.5rem;">
-                <div class="flex items-center justify-between" style="margin-bottom:0.4rem;">
-                  <h3 style="font-weight: 800; font-size: 1.25rem;">05. Glassmorphic</h3>
-                  <span class="badge" style="background:#3b0764; color:#d8b4fe;">Dark & Neon</span>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Deep purple night sky, blurred frosted glass panels, illuminated neon gradient text, and soft glows.
-                </p>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="app.openThemePreviewModal('glassmorphic')">Preview Live</button>
-                  <a href="#create/4" class="btn btn-primary btn-sm" onclick="app.selectedTheme='glassmorphic'">Use Theme</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 6. Futuristic Terminal Card -->
-            <div class="theme-showcase-card">
-              <div class="theme-preview-box preview-terminal">
-                <div style="font-size:0.7rem; color:#6b7280;">> root@dev-shell:~#</div>
-                <div style="font-size:0.85rem; font-weight:700; color:#00ff88; margin:0.3rem 0;">$ cat skills.json [OK]</div>
-                <div style="font-size:0.65rem; color:#38bdf8;">Python | C++ | Docker | AI</div>
-              </div>
-              <div style="padding: 1.5rem;">
-                <div class="flex items-center justify-between" style="margin-bottom:0.4rem;">
-                  <h3 style="font-weight: 800; font-size: 1.25rem;">06. Futuristic Terminal</h3>
-                  <span class="badge" style="background:#064e3b; color:#34d399;">Developer</span>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Command-line inspired interface, monospace typography, neon terminal logs, and system diagnostics.
-                </p>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="app.openThemePreviewModal('futuristic')">Preview Live</button>
-                  <a href="#create/4" class="btn btn-primary btn-sm" onclick="app.selectedTheme='futuristic'">Use Theme</a>
+                <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.75rem; color: #94a3b8;">Single-File HTML Exportable</span>
+                  <a href="${this.currentUser ? '#create/1' : '#signup'}" style="font-size: 0.8rem; font-weight: 700; color: #6366f1;">Generate Yours ↗</a>
                 </div>
               </div>
             </div>
@@ -479,68 +287,15 @@ class PortfolioForgeApp {
         </div>
       </section>
 
-      <!-- Features Section -->
-      <section id="features" style="padding: 6rem 0; background: var(--bg-surface); border-top: 1px solid var(--border-color);">
-        <div class="container">
-          <div style="text-align: center; max-width: 640px; margin: 0 auto 3.5rem auto;">
-            <span class="badge badge-primary">Engine Capabilities</span>
-            <h2 class="heading-display" style="font-size: 2.3rem; margin-top: 0.75rem;">Engineered for Developers</h2>
-          </div>
-
-          <div class="grid grid-cols-4 md-grid-cols-1 gap-6">
-            <div class="card card-hover">
-              <div style="font-size: 2rem; margin-bottom: 0.75rem;">⚡</div>
-              <h3 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 0.4rem;">Deterministic Parser</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Accurately extracts contact info, tech skills, work experience timelines, and degrees from unstructured text.</p>
-            </div>
-            <div class="card card-hover">
-              <div style="font-size: 2rem; margin-bottom: 0.75rem;">📊</div>
-              <h3 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 0.4rem;">Quality Diagnostics</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Calculates resume completeness score and highlights missing metrics to optimize recruiter impression.</p>
-            </div>
-            <div class="card card-hover">
-              <div style="font-size: 2rem; margin-bottom: 0.75rem;">🤖</div>
-              <h3 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 0.4rem;">Gemini Prompt Craft</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Structures clean JSON prompts with semantic categorization ready for Gemini AI processing.</p>
-            </div>
-            <div class="card card-hover">
-              <div style="font-size: 2rem; margin-bottom: 0.75rem;">📦</div>
-              <h3 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 0.4rem;">Single-File Export</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Export 100% self-contained standalone HTML files ready to drop straight into GitHub Pages or Vercel.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Bottom Call To Action -->
-      <section style="padding: 5rem 0; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #fff; text-align: center;">
-        <div class="container-narrow">
-          <h2 class="heading-display" style="font-size: 2.8rem; margin-bottom: 1rem; color: #fff;">
-            Generate Your Dream Portfolio Today.
-          </h2>
-          <p style="font-size: 1.15rem; color: #c7d2fe; margin-bottom: 2rem;">
-            No subscriptions, no complex setup. Just drop your resume and watch your website come alive.
-          </p>
-          <a href="#create/1" class="btn btn-primary btn-lg" style="background:#fff; color:#4f46e5; box-shadow:0 10px 25px rgba(0,0,0,0.3);">
-            🚀 Start Portfolio Generator Now
-          </a>
-        </div>
-      </section>
-
-      <!-- Global Footer -->
-      <footer style="background: #090d16; color: #94a3b8; padding: 3rem 0; font-size: 0.85rem; border-top: 1px solid #1e293b;">
+      <!-- Minimal Public Footer -->
+      <footer style="background: #090d16; color: #64748b; padding: 2rem 0; font-size: 0.85rem; border-top: 1px solid #1e293b;">
         <div class="container flex justify-between items-center md-flex-col gap-4">
           <div class="flex items-center gap-2">
-            <span style="color:#6366f1; font-weight:800; font-size:1.1rem;">✦ PortfolioForge</span>
+            <span style="color:#6366f1; font-weight:800; font-size:1rem;">✦ PortfolioForge</span>
             <span>— AI Resume to Portfolio Studio</span>
           </div>
           <div>
-            Built with Vanilla HTML5, CSS3, ES6 JavaScript & JSON.
-          </div>
-          <div class="flex gap-4">
-            <a href="#admin" style="color: #cbd5e1;">Admin Panel</a>
-            <a href="#login" style="color: #cbd5e1;">Sign In</a>
-            <a href="#create/1" style="color: #cbd5e1;">Create</a>
+            Built with Clean HTML5, CSS3, ES6 JavaScript & JSON.
           </div>
         </div>
       </footer>
@@ -548,7 +303,7 @@ class PortfolioForgeApp {
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     AUTH VIEWS (Login / Signup)
+     2. AUTH VIEWS (Login / Signup)
      ────────────────────────────────────────────────────────────────────────── */
 
   renderLoginPage() {
@@ -665,35 +420,52 @@ class PortfolioForgeApp {
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     DASHBOARD VIEW
+     AUTHENTICATED APPLICATION SHELL & HEADER (Top-right Mode Switch)
      ────────────────────────────────────────────────────────────────────────── */
 
-  renderDashboard() {
+  renderAuthenticatedLayout(pageTitle, contentHtml, activeNav = 'dashboard') {
     const user = this.currentUser || { name: 'Anshika Bansal', email: 'anshika@example.com' };
     const root = document.getElementById('app-root');
+
     root.innerHTML = `
       <div style="display: flex; min-height: 100vh; background: var(--bg-primary);">
         
-        <!-- Sidebar Navigation -->
-        <aside style="width: 260px; background: var(--bg-surface); border-right: 1px solid var(--border-color); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <!-- Minimal Clean Sidebar -->
+        <aside style="width: 250px; background: var(--bg-surface); border-right: 1px solid var(--border-color); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; flex-shrink: 0;">
           <div>
-            <a href="#home" class="brand-logo" style="margin-bottom: 2rem;">
+            <a href="#dashboard" class="brand-logo" style="margin-bottom: 2rem;">
               <span class="brand-sparkle">✦</span>
               <span>PortfolioForge</span>
             </a>
 
-            <nav style="display: flex; flex-direction: column; gap: 0.4rem;">
-              <a href="#dashboard" class="btn btn-secondary" style="justify-content: flex-start; background: var(--primary-light); color: var(--primary); border-color: transparent;">📊 Dashboard</a>
-              <a href="#portfolios" class="btn btn-ghost" style="justify-content: flex-start;">📁 My Portfolios</a>
-              <a href="#themes" class="btn btn-ghost" style="justify-content: flex-start;">🎨 Themes Gallery</a>
-              <a href="#settings" class="btn btn-ghost" style="justify-content: flex-start;">⚙️ Settings</a>
-              ${user.role === 'admin' ? '<a href="#admin" class="btn btn-ghost" style="justify-content: flex-start; color:#f59e0b;">👑 Admin Console</a>' : ''}
+            <nav style="display: flex; flex-direction: column; gap: 0.35rem;">
+              <a href="#dashboard" class="btn ${activeNav === 'dashboard' ? 'btn-secondary' : 'btn-ghost'}" style="justify-content: flex-start; ${activeNav === 'dashboard' ? 'background: var(--primary-light); color: var(--primary); border-color: transparent;' : ''}">
+                📊 Dashboard
+              </a>
+              <a href="#portfolios" class="btn ${activeNav === 'portfolios' ? 'btn-secondary' : 'btn-ghost'}" style="justify-content: flex-start; ${activeNav === 'portfolios' ? 'background: var(--primary-light); color: var(--primary); border-color: transparent;' : ''}">
+                📁 My Portfolios
+              </a>
+              <a href="#create/1" class="btn btn-ghost" style="justify-content: flex-start;">
+                ⚡ Create Portfolio
+              </a>
+              <a href="#themes" class="btn ${activeNav === 'themes' ? 'btn-secondary' : 'btn-ghost'}" style="justify-content: flex-start; ${activeNav === 'themes' ? 'background: var(--primary-light); color: var(--primary); border-color: transparent;' : ''}">
+                🎨 Themes
+              </a>
+
+              <div style="height: 1px; background: var(--border-color); margin: 0.75rem 0;"></div>
+
+              <a href="#settings" class="btn ${activeNav === 'settings' ? 'btn-secondary' : 'btn-ghost'}" style="justify-content: flex-start; ${activeNav === 'settings' ? 'background: var(--primary-light); color: var(--primary); border-color: transparent;' : ''}">
+                ⚙️ Settings
+              </a>
+              <a href="javascript:void(0)" onclick="app.showToast('Need help? Drop a resume to get started!', 'info')" class="btn btn-ghost" style="justify-content: flex-start;">
+                ❓ Help
+              </a>
             </nav>
           </div>
 
           <div style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
-            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-              <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem;">
                 ${user.name[0]}
               </div>
               <div style="overflow: hidden;">
@@ -707,105 +479,298 @@ class PortfolioForgeApp {
           </div>
         </aside>
 
-        <!-- Main Dashboard Content Area -->
-        <main style="flex: 1; padding: 2.5rem; overflow-y: auto;">
-          <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
-            <div>
-              <h1 class="heading-display" style="font-size: 2rem;">Welcome back, ${user.name.split(' ')[0]} 👋</h1>
-              <p style="color: var(--text-secondary); margin-top: 0.25rem;">Create, customize, and deploy your AI developer portfolios.</p>
-            </div>
-            <a href="#create/1" class="btn btn-primary">
-              ⚡ + Create New Portfolio
-            </a>
-          </div>
-
-          <!-- Quick Metrics Grid -->
-          <div class="grid grid-cols-4 md-grid-cols-2 gap-4" style="margin-bottom: 2.5rem;">
-            <div class="card">
-              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Total Portfolios</span>
-              <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem;">4</div>
-            </div>
-            <div class="card">
-              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Live Published</span>
-              <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--accent-emerald);">2</div>
-            </div>
-            <div class="card">
-              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Total Pageviews</span>
-              <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--primary);">1,248</div>
-            </div>
-            <div class="card">
-              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Avg Resume Score</span>
-              <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--accent-purple);">72/100</div>
-            </div>
-          </div>
-
-          <!-- Recent Portfolios Section -->
-          <div style="margin-bottom: 2.5rem;">
-            <div class="flex justify-between items-center" style="margin-bottom: 1.25rem;">
-              <h2 style="font-size: 1.3rem; font-weight: 800;">Recent Portfolios</h2>
-              <a href="#portfolios" style="color: var(--primary); font-size: 0.85rem; font-weight: 600;">View all portfolios →</a>
+        <!-- Main Content Area with Top Header containing Mode Switch -->
+        <div style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
+          
+          <!-- Authenticated Application Header -->
+          <header style="height: 4.25rem; background: var(--bg-surface); border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50;">
+            <div style="font-weight: 800; font-size: 1.25rem; color: var(--text-primary);">
+              ${pageTitle}
             </div>
 
-            <div class="grid grid-cols-3 md-grid-cols-1 gap-6">
-              
-              <!-- Portfolio Card 1 -->
-              <div class="card card-hover" style="border-top: 4px solid #6366f1;">
-                <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
-                  <span class="badge badge-primary">Bento Grid</span>
-                  <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700;">● Published</span>
+            <!-- Top-Right Controls: Mode Switch, Notifications, Profile -->
+            <div class="flex items-center gap-3">
+              <!-- Mode Toggle Control (Top-Right) -->
+              <button class="btn btn-secondary btn-sm mode-toggle-btn" onclick="app.toggleThemeMode()" title="${this.currentThemeMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}" style="font-size: 1rem; padding: 0.4rem 0.65rem;">
+                ${this.currentThemeMode === 'dark' ? '☀️' : '🌙'}
+              </button>
+
+              <!-- Notifications Indicator -->
+              <button class="btn btn-ghost btn-sm" title="Notifications" onclick="app.showToast('No new notifications', 'info')">
+                🔔
+              </button>
+
+              <!-- User Profile Indicator -->
+              <div class="flex items-center gap-2" style="padding-left: 0.5rem; border-left: 1px solid var(--border-color);">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem;">
+                  ${user.name[0]}
                 </div>
-                <h3 style="font-weight: 800; font-size: 1.15rem; margin-bottom: 0.25rem;">AI Engineer Portfolio 2026</h3>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 2 hours ago • 847 Views</p>
-                <div class="flex gap-2">
-                  <a href="#portfolio-view/bento" class="btn btn-secondary btn-sm" style="flex:1;">View Live</a>
-                  <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
-                </div>
+                <span style="font-size: 0.85rem; font-weight: 600;">${user.name.split(' ')[0]}</span>
               </div>
-
-              <!-- Portfolio Card 2 -->
-              <div class="card card-hover" style="border-top: 4px solid #00ff88;">
-                <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
-                  <span class="badge" style="background:#064e3b; color:#34d399;">Futuristic Terminal</span>
-                  <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700;">● Published</span>
-                </div>
-                <h3 style="font-weight: 800; font-size: 1.15rem; margin-bottom: 0.25rem;">Hacker Shell Edition</h3>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 3 days ago • 277 Views</p>
-                <div class="flex gap-2">
-                  <a href="#portfolio-view/futuristic" class="btn btn-secondary btn-sm" style="flex:1;">View Live</a>
-                  <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
-                </div>
-              </div>
-
-              <!-- Portfolio Card 3 -->
-              <div class="card card-hover" style="border-top: 4px solid #000;">
-                <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
-                  <span class="badge" style="background:#000; color:#fff;">Brutalist</span>
-                  <span style="font-size: 0.75rem; color: var(--accent-amber); font-weight: 700;">○ Draft</span>
-                </div>
-                <h3 style="font-weight: 800; font-size: 1.15rem; margin-bottom: 0.25rem;">Raw Editorial Showcase</h3>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 1 week ago • 124 Views</p>
-                <div class="flex gap-2">
-                  <a href="#portfolio-view/brutalist" class="btn btn-secondary btn-sm" style="flex:1;">View Live</a>
-                  <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
-                </div>
-              </div>
-
             </div>
-          </div>
-        </main>
+          </header>
+
+          <!-- Main Page Body -->
+          <main style="flex: 1; padding: 2.5rem;">
+            ${contentHtml}
+          </main>
+
+        </div>
       </div>
     `;
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     6-STEP CREATION WIZARD ENGINE
+     3. AUTHENTICATED DASHBOARD VIEW (Clean Original SaaS Style)
+     ────────────────────────────────────────────────────────────────────────── */
+
+  renderDashboard() {
+    const user = this.currentUser || { name: 'Anshika Bansal', email: 'anshika@example.com' };
+
+    const bodyHtml = `
+      <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+        <div>
+          <h1 class="heading-display" style="font-size: 1.85rem;">Welcome back, ${user.name.split(' ')[0]} 👋</h1>
+          <p style="color: var(--text-secondary); margin-top: 0.25rem;">Create, customize, and manage your AI developer portfolios.</p>
+        </div>
+        <a href="#create/1" class="btn btn-primary">
+          + Create New Portfolio
+        </a>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="grid grid-cols-4 md-grid-cols-2 gap-4" style="margin-bottom: 2.5rem;">
+        <div class="card">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Total Portfolios</span>
+          <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem;">4</div>
+        </div>
+        <div class="card">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Published</span>
+          <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--accent-emerald);">2</div>
+        </div>
+        <div class="card">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Total Views</span>
+          <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--primary);">1,248</div>
+        </div>
+        <div class="card">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Resume Score</span>
+          <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--accent-purple);">72/100</div>
+        </div>
+      </div>
+
+      <!-- Recent Portfolios Section -->
+      <div style="margin-bottom: 2.5rem;">
+        <div class="flex justify-between items-center" style="margin-bottom: 1.25rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 800;">Recent Portfolios</h2>
+          <a href="#portfolios" style="color: var(--primary); font-size: 0.85rem; font-weight: 600;">View all →</a>
+        </div>
+
+        <div class="grid grid-cols-3 md-grid-cols-1 gap-6">
+          
+          <!-- Portfolio Card 1 -->
+          <div class="card card-hover" style="border-top: 4px solid #6366f1;">
+            <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
+              <span class="badge badge-primary">Bento Grid</span>
+              <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700;">● Published</span>
+            </div>
+            <h3 style="font-weight: 800; font-size: 1.15rem; margin-bottom: 0.25rem;">Developer Portfolio 2026</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 2 hours ago • 847 Views</p>
+            <div class="flex gap-2">
+              <a href="#portfolio-view/bento" class="btn btn-secondary btn-sm" style="flex:1;">Preview</a>
+              <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
+            </div>
+          </div>
+
+          <!-- Portfolio Card 2 -->
+          <div class="card card-hover" style="border-top: 4px solid #00ff88;">
+            <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
+              <span class="badge" style="background:rgba(0,255,136,0.1); color:#10b981;">Terminal</span>
+              <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700;">● Published</span>
+            </div>
+            <h3 style="font-weight: 800; font-size: 1.15rem; margin-bottom: 0.25rem;">Terminal Edition</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 3 days ago • 277 Views</p>
+            <div class="flex gap-2">
+              <a href="#portfolio-view/futuristic" class="btn btn-secondary btn-sm" style="flex:1;">Preview</a>
+              <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
+            </div>
+          </div>
+
+          <!-- Portfolio Card 3 -->
+          <div class="card card-hover" style="border-top: 4px solid #000;">
+            <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
+              <span class="badge" style="background:#e2e8f0; color:#0f172a;">Brutalist</span>
+              <span style="font-size: 0.75rem; color: var(--accent-amber); font-weight: 700;">○ Draft</span>
+            </div>
+            <h3 style="font-weight: 800; font-size: 1.15rem; margin-bottom: 0.25rem;">Brutalist Showcase</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 1 week ago • 124 Views</p>
+            <div class="flex gap-2">
+              <a href="#portfolio-view/brutalist" class="btn btn-secondary btn-sm" style="flex:1;">Preview</a>
+              <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    this.renderAuthenticatedLayout('Dashboard', bodyHtml, 'dashboard');
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     4. AUTHENTICATED THEMES PAGE (Only after sign-in)
+     ────────────────────────────────────────────────────────────────────────── */
+
+  renderThemesView() {
+    const themesList = [
+      { id: 'brutalist', name: '01. Brutalist', label: 'RAW / EXPRESSIVE', desc: 'Heavy black borders, high contrast, oversized typography and sharp editorial grid.', badge: 'High Contrast' },
+      { id: 'bento', name: '02. Bento Grid', label: 'MODULAR / CLEAN', desc: 'Modern dashboard-inspired modular cards, compact layout, and balanced visual hierarchy.', badge: 'Popular' },
+      { id: 'minimal', name: '03. Minimal Editorial', label: 'MINIMAL / REFINED', desc: 'Serif headings, generous breathing space, hairline dividers, and magazine-style elegance.', badge: 'Editorial' },
+      { id: 'spatial', name: '04. Spatial UI', label: 'SPATIAL / IMMERSIVE', desc: 'Layered floating cards with deep ambient shadows and dimensional hierarchy.', badge: '3D Depth' },
+      { id: 'glassmorphic', name: '05. Glassmorphic', label: 'GLASS / FUTURE', desc: 'Midnight violet backdrop, frosted glass panels, illuminated neon gradient text, and glows.', badge: 'Dark UI' },
+      { id: 'futuristic', name: '06. Futuristic Terminal', label: 'SYSTEM / TERMINAL', desc: 'Command-line developer shell, monospace typography, neon green accents, and system logs.', badge: 'Developer' }
+    ];
+
+    const bodyHtml = `
+      <div style="margin-bottom: 2rem;">
+        <h1 class="heading-display" style="font-size: 1.85rem;">Portfolio Themes</h1>
+        <p style="color: var(--text-secondary); margin-top: 0.25rem;">
+          Choose or preview any of the 6 distinct visual systems for your generated portfolio.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-3 md-grid-cols-1 gap-6">
+        ${themesList.map(t => `
+          <div class="card card-hover" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="flex justify-between items-center" style="margin-bottom: 0.5rem;">
+                <span class="badge badge-primary" style="font-size: 0.65rem;">${t.label}</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">${t.badge}</span>
+              </div>
+              <h3 style="font-weight: 800; font-size: 1.25rem; margin-bottom: 0.4rem;">${t.name}</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;">${t.desc}</p>
+            </div>
+            
+            <div class="flex gap-2">
+              <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="app.openThemePreviewModal('${t.id}')">Preview Theme</button>
+              <a href="#create/4" class="btn btn-primary btn-sm" onclick="app.selectedTheme='${t.id}'">Use Theme</a>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    this.renderAuthenticatedLayout('Themes', bodyHtml, 'themes');
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     5. AUTHENTICATED MY PORTFOLIOS PAGE
+     ────────────────────────────────────────────────────────────────────────── */
+
+  renderPortfoliosView() {
+    const bodyHtml = `
+      <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+        <div>
+          <h1 class="heading-display" style="font-size: 1.85rem;">My Portfolios</h1>
+          <p style="color: var(--text-secondary); margin-top: 0.25rem;">Manage, edit, and export your personal portfolio websites.</p>
+        </div>
+        <a href="#create/1" class="btn btn-primary">
+          + Create New Portfolio
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 md-grid-cols-1 gap-6">
+        <!-- Portfolio 1 -->
+        <div class="card card-hover">
+          <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
+            <span class="badge badge-primary">Bento Grid</span>
+            <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700;">● Published</span>
+          </div>
+          <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 0.25rem;">Developer Portfolio 2026</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 2 hours ago • 847 Views</p>
+          <div class="flex gap-2">
+            <a href="#portfolio-view/bento" class="btn btn-secondary btn-sm" style="flex:1;">View Live ↗</a>
+            <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
+          </div>
+        </div>
+
+        <!-- Portfolio 2 -->
+        <div class="card card-hover">
+          <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
+            <span class="badge" style="background:rgba(0,255,136,0.1); color:#10b981;">Terminal</span>
+            <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700;">● Published</span>
+          </div>
+          <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 0.25rem;">Terminal Edition</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 3 days ago • 277 Views</p>
+          <div class="flex gap-2">
+            <a href="#portfolio-view/futuristic" class="btn btn-secondary btn-sm" style="flex:1;">View Live ↗</a>
+            <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
+          </div>
+        </div>
+
+        <!-- Portfolio 3 -->
+        <div class="card card-hover">
+          <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
+            <span class="badge" style="background:#e2e8f0; color:#0f172a;">Brutalist</span>
+            <span style="font-size: 0.75rem; color: var(--accent-amber); font-weight: 700;">○ Draft</span>
+          </div>
+          <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 0.25rem;">Brutalist Showcase</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Updated 1 week ago • 124 Views</p>
+          <div class="flex gap-2">
+            <a href="#portfolio-view/brutalist" class="btn btn-secondary btn-sm" style="flex:1;">View Live ↗</a>
+            <a href="#create/3" class="btn btn-ghost btn-sm">Edit</a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.renderAuthenticatedLayout('My Portfolios', bodyHtml, 'portfolios');
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     6. AUTHENTICATED SETTINGS PAGE
+     ────────────────────────────────────────────────────────────────────────── */
+
+  renderSettingsView() {
+    const user = this.currentUser || { name: 'Anshika Bansal', email: 'anshika@example.com' };
+
+    const bodyHtml = `
+      <div style="max-width: 680px;">
+        <h1 class="heading-display" style="font-size: 1.85rem; margin-bottom: 2rem;">Account & Preferences</h1>
+
+        <div class="card" style="margin-bottom: 2rem;">
+          <h3 style="font-weight: 700; margin-bottom: 1.25rem;">User Profile</h3>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input class="form-input" value="${user.name}" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" value="${user.email}" readonly>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 2rem;">
+          <h3 style="font-weight: 700; margin-bottom: 1.25rem;">Appearance Mode</h3>
+          <div class="flex gap-3">
+            <button class="btn ${this.currentThemeMode === 'light' ? 'btn-primary' : 'btn-secondary'} btn-sm" onclick="app.applyThemeMode('light')">☀️ Light Mode</button>
+            <button class="btn ${this.currentThemeMode === 'dark' ? 'btn-primary' : 'btn-secondary'} btn-sm" onclick="app.applyThemeMode('dark')">🌙 Dark Mode</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.renderAuthenticatedLayout('Settings', bodyHtml, 'settings');
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     7. 6-STEP CREATION WIZARD ENGINE
      ────────────────────────────────────────────────────────────────────────── */
 
   renderWizardStep(step = 1) {
     this.currentWizardStep = step;
     const root = document.getElementById('app-root');
 
-    const stepTitles = ['Upload Resume', 'Diagnostic Analysis', 'Review & Edit', 'Select Theme', 'AI Generation', 'Final Preview'];
+    const stepTitles = ['Upload', 'Analysis', 'Review', 'Theme', 'Generate', 'Preview'];
 
     root.innerHTML = `
       <!-- Stepper Header -->
@@ -817,7 +782,7 @@ class PortfolioForgeApp {
           </a>
           
           <!-- Horizontal Stepper Indicator -->
-          <div class="stepper-nav" style="flex: 1; max-width: 650px; margin: 0 2rem;">
+          <div class="stepper-nav" style="flex: 1; max-width: 600px; margin: 0 2rem;">
             ${[1, 2, 3, 4, 5, 6].map(i => `
               <div class="stepper-item ${i === step ? 'active' : ''} ${i < step ? 'completed' : ''}" onclick="app.renderWizardStep(${i})">
                 <div class="stepper-circle">${i < step ? '✓' : i}</div>
@@ -828,7 +793,12 @@ class PortfolioForgeApp {
             `).join('')}
           </div>
 
-          <a href="#dashboard" class="btn btn-ghost btn-sm">Exit Wizard</a>
+          <div class="flex items-center gap-3">
+            <button class="btn btn-secondary btn-sm mode-toggle-btn" onclick="app.toggleThemeMode()" title="Toggle Dark/Light Mode">
+              ${this.currentThemeMode === 'dark' ? '☀️' : '🌙'}
+            </button>
+            <a href="#dashboard" class="btn btn-ghost btn-sm">Exit</a>
+          </div>
         </div>
       </div>
 
@@ -883,7 +853,7 @@ class PortfolioForgeApp {
       <!-- Quick Sample Loader -->
       <div class="card flex justify-between items-center md-flex-col gap-4" style="background: var(--primary-light); border-color: rgba(99,102,241,0.3); margin-bottom: 2.5rem;">
         <div>
-          <div style="font-weight: 700; color: var(--primary);">Want to try without a file right now?</div>
+          <div style="font-weight: 700; color: var(--primary);">Want to test with sample data?</div>
           <div style="font-size: 0.85rem; color: var(--text-secondary);">Load our pre-configured CS & AI Engineer profile.</div>
         </div>
         <button class="btn btn-primary btn-sm" onclick="app.loadDemoProfileAndProceed()">⚡ Load Sample Resume</button>
@@ -992,17 +962,8 @@ class PortfolioForgeApp {
         </div>
       </div>
 
-      <!-- Recommendations Box -->
-      <div class="card" style="border-left: 4px solid var(--accent-amber); margin-bottom: 2.5rem;">
-        <h4 style="font-weight: 700; margin-bottom: 0.4rem;">💡 Recommended Enhancements for Step 3:</h4>
-        <ul style="padding-left: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-          <li>Add live demo links or repository URLs to your featured projects.</li>
-          <li>Specify measurable impact metrics (e.g. 35% query speedup).</li>
-        </ul>
-      </div>
-
       <div class="flex justify-between items-center">
-        <button class="btn btn-secondary" onclick="app.renderWizardStep(1)">← Back to Upload</button>
+        <button class="btn btn-secondary" onclick="app.renderWizardStep(1)">← Back</button>
         <button class="btn btn-primary btn-lg" onclick="app.renderWizardStep(3)">Review & Edit Data →</button>
       </div>
     `;
@@ -1016,7 +977,7 @@ class PortfolioForgeApp {
       <div style="text-align: center; margin-bottom: 2.5rem;">
         <span class="badge badge-primary">Step 03 / 06</span>
         <h1 class="heading-display" style="font-size: 2.2rem; margin-top: 0.5rem;">Review & Polish Information</h1>
-        <p style="color: var(--text-secondary);">Fine-tune your extracted details before generating prompts and templates.</p>
+        <p style="color: var(--text-secondary);">Fine-tune your extracted details before choosing a theme.</p>
       </div>
 
       <div class="card" style="margin-bottom: 2.5rem;">
@@ -1052,12 +1013,12 @@ class PortfolioForgeApp {
         </div>
 
         <div class="form-group" style="margin-top: 1rem;">
-          <label class="form-label">About / Executive Summary</label>
+          <label class="form-label">About / Summary</label>
           <textarea id="edit-about" class="form-textarea" rows="3">${data.about || ''}</textarea>
         </div>
 
         <h3 style="font-size: 1.2rem; font-weight: 800; margin: 2rem 0 1rem 0; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
-          ⚡ Technical Skills Arsenal
+          ⚡ Technical Skills
         </h3>
         <div class="form-group">
           <label class="form-label">Comma-separated skills</label>
@@ -1088,22 +1049,22 @@ class PortfolioForgeApp {
     this.renderWizardStep(4);
   }
 
-  // STEP 4: Choose Visual Theme
+  // STEP 4: Choose Visual Theme (Inside Creator Wizard)
   renderWizardStep4_Customize(container) {
     const themesList = [
-      { id: 'brutalist', name: 'Brutalist', label: 'RAW / EXPRESSIVE', desc: 'Heavy borders, high contrast, oversized typography' },
-      { id: 'bento', name: 'Bento Grid', label: 'MODULAR / CLEAN', desc: 'Dashboard modules, soft badges, organized hierarchy' },
-      { id: 'minimal', name: 'Minimal Editorial', label: 'MINIMAL / REFINED', desc: 'Serif headings, generous breathing space, magazine style' },
-      { id: 'spatial', name: 'Spatial UI', label: 'SPATIAL / IMMERSIVE', desc: 'Layered floating cards with deep ambient shadows' },
-      { id: 'glassmorphic', name: 'Glassmorphic', label: 'GLASS / FUTURE', desc: 'Midnight violet backdrop, frosted glass, glowing borders' },
-      { id: 'futuristic', name: 'Futuristic Terminal', label: 'SYSTEM / TERMINAL', desc: 'Command line shell, neon green accents, ASCII blocks' }
+      { id: 'brutalist', name: '01. Brutalist', label: 'RAW / EXPRESSIVE', desc: 'Heavy borders, high contrast, oversized typography' },
+      { id: 'bento', name: '02. Bento Grid', label: 'MODULAR / CLEAN', desc: 'Dashboard modules, soft badges, organized hierarchy' },
+      { id: 'minimal', name: '03. Minimal Editorial', label: 'MINIMAL / REFINED', desc: 'Serif headings, generous breathing space, magazine style' },
+      { id: 'spatial', name: '04. Spatial UI', label: 'SPATIAL / IMMERSIVE', desc: 'Layered floating cards with deep ambient shadows' },
+      { id: 'glassmorphic', name: '05. Glassmorphic', label: 'GLASS / FUTURE', desc: 'Midnight violet backdrop, frosted glass, glowing borders' },
+      { id: 'futuristic', name: '06. Futuristic Terminal', label: 'SYSTEM / TERMINAL', desc: 'Command line shell, neon green accents, ASCII blocks' }
     ];
 
     container.innerHTML = `
       <div style="text-align: center; margin-bottom: 2.5rem;">
         <span class="badge badge-primary">Step 04 / 06</span>
         <h1 class="heading-display" style="font-size: 2.2rem; margin-top: 0.5rem;">Choose Your Portfolio Theme</h1>
-        <p style="color: var(--text-secondary);">Select the visual system that best reflects your engineering personality.</p>
+        <p style="color: var(--text-secondary);">Select the visual design system for your generated portfolio.</p>
       </div>
 
       <div class="grid grid-cols-3 md-grid-cols-1 gap-6" style="margin-bottom: 2.5rem;">
@@ -1138,8 +1099,8 @@ class PortfolioForgeApp {
     container.innerHTML = `
       <div style="text-align: center; margin-bottom: 2.5rem;">
         <span class="badge badge-primary">Step 05 / 06</span>
-        <h1 class="heading-display" style="font-size: 2.2rem; margin-top: 0.5rem;">AI Portfolio Generation</h1>
-        <p style="color: var(--text-secondary);">Structuring content & rendering your chosen design template.</p>
+        <h1 class="heading-display" style="font-size: 2.2rem; margin-top: 0.5rem;">Generating Portfolio</h1>
+        <p style="color: var(--text-secondary);">Structuring content & compiling your chosen design template.</p>
       </div>
 
       <div class="card" style="margin-bottom: 2rem;">
@@ -1161,7 +1122,7 @@ class PortfolioForgeApp {
 
       <div class="card" style="margin-bottom: 2.5rem;">
         <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
-          <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted);">GENERATED JSON PAYLOAD</span>
+          <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted);">STRUCTURED JSON PAYLOAD</span>
           <button class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText(JSON.stringify(app.activeProfileData, null, 2)); app.showToast('Copied JSON to clipboard!', 'success');">📋 Copy JSON</button>
         </div>
         <div class="code-container" style="max-height: 200px;">
@@ -1183,7 +1144,7 @@ class PortfolioForgeApp {
         step3.innerText = '✓';
       }
       this.showToast('Portfolio generated successfully! 🎉', 'success');
-    }, 1200);
+    }, 1000);
   }
 
   // STEP 6: Final Portfolio Preview & Export
@@ -1200,7 +1161,7 @@ class PortfolioForgeApp {
       <!-- Action Bar -->
       <div class="card flex justify-between items-center md-flex-col gap-4" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem;">
         <div class="flex items-center gap-3">
-          <span style="font-weight: 700; font-size: 0.9rem;">Current Theme:</span>
+          <span style="font-weight: 700; font-size: 0.9rem;">Theme:</span>
           <select class="form-select" style="width: auto; padding: 0.4rem 1rem;" onchange="app.selectedTheme = this.value; app.renderWizardStep(6);">
             <option value="brutalist" ${this.selectedTheme === 'brutalist' ? 'selected' : ''}>01. Brutalist</option>
             <option value="bento" ${this.selectedTheme === 'bento' ? 'selected' : ''}>02. Bento Grid</option>
@@ -1213,7 +1174,7 @@ class PortfolioForgeApp {
 
         <div class="flex gap-2">
           <button class="btn btn-secondary btn-sm" onclick="app.downloadStandalonePortfolio()">
-            📥 Download Single-File HTML
+            📥 Download HTML
           </button>
           <a href="#portfolio-view/${this.selectedTheme}" class="btn btn-primary btn-sm" target="_blank">
             Fullscreen Preview ↗
@@ -1238,7 +1199,7 @@ class PortfolioForgeApp {
 
       <div class="flex justify-between items-center" style="margin-top: 2rem;">
         <button class="btn btn-secondary" onclick="app.renderWizardStep(4)">← Change Theme</button>
-        <a href="#dashboard" class="btn btn-primary btn-lg">Finish & Return to Dashboard →</a>
+        <a href="#dashboard" class="btn btn-primary btn-lg">Finish & Go to Dashboard →</a>
       </div>
     `;
   }
@@ -1274,7 +1235,7 @@ class PortfolioForgeApp {
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     STANDALONE FULLSCREEN PORTFOLIO VIEW
+     8. STANDALONE FULLSCREEN PORTFOLIO VIEW
      ────────────────────────────────────────────────────────────────────────── */
 
   renderFullPortfolioView(theme = 'bento') {
@@ -1293,44 +1254,7 @@ class PortfolioForgeApp {
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     THEMES GALLERY VIEW
-     ────────────────────────────────────────────────────────────────────────── */
-
-  renderThemesView() {
-    this.renderLandingPage();
-    setTimeout(() => {
-      const el = document.getElementById('themes');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  }
-
-  renderPortfoliosView() {
-    this.renderDashboard();
-  }
-
-  renderSettingsView() {
-    const root = document.getElementById('app-root');
-    root.innerHTML = `
-      <div class="container-narrow" style="padding: 4rem 1.5rem;">
-        <a href="#dashboard" class="btn btn-ghost btn-sm" style="margin-bottom: 1rem;">← Back to Dashboard</a>
-        <h1 class="heading-display" style="font-size: 2rem; margin-bottom: 2rem;">Account & Preferences</h1>
-
-        <div class="card" style="margin-bottom: 2rem;">
-          <h3 style="font-weight: 700; margin-bottom: 1rem;">Platform Settings</h3>
-          <div class="form-group">
-            <label class="form-label">Application Theme Mode</label>
-            <div class="flex gap-3">
-              <button class="btn ${this.currentThemeMode === 'light' ? 'btn-primary' : 'btn-secondary'} btn-sm" onclick="app.applyThemeMode('light')">☀️ Light Mode</button>
-              <button class="btn ${this.currentThemeMode === 'dark' ? 'btn-primary' : 'btn-secondary'} btn-sm" onclick="app.applyThemeMode('dark')">🌙 Dark Mode</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  /* ──────────────────────────────────────────────────────────────────────────
-     ADMIN DASHBOARD
+     9. ADMIN DASHBOARD (Internal Route #admin)
      ────────────────────────────────────────────────────────────────────────── */
 
   renderAdminDashboard(section = 'overview') {
@@ -1362,7 +1286,7 @@ class PortfolioForgeApp {
         <main style="flex: 1; padding: 2.5rem; overflow-y: auto;">
           <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
             <div>
-              <h1 class="heading-display" style="font-size: 2rem; color: #fff;">System Analytics & Generation Telemetry</h1>
+              <h1 class="heading-display" style="font-size: 2rem; color: #fff;">System Analytics & Telemetry</h1>
               <p style="color: #94a3b8;">Live overview of resume ingestions, theme distribution, and latency.</p>
             </div>
             <span class="badge" style="background:#064e3b; color:#34d399;">● FASTAPI PROXY HEALTHY</span>
@@ -1383,14 +1307,14 @@ class PortfolioForgeApp {
               <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--accent-emerald);">2,145</div>
             </div>
             <div class="card card-dark">
-              <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Diagnostic Success Rate</span>
+              <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Success Rate</span>
               <div style="font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--accent-purple);">98.4%</div>
             </div>
           </div>
 
           <!-- Generation Volume Chart (Pure SVG) -->
           <div class="card card-dark" style="margin-bottom: 2rem;">
-            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: #fff;">Daily Generation Ingestion Volume (Last 7 Days)</h3>
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: #fff;">Daily Generation Volume</h3>
             <div style="height: 180px; width: 100%; display: flex; align-items: flex-end; gap: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #1e293b;">
               ${[45, 68, 89, 124, 156, 180, 210].map((v, i) => `
                 <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
@@ -1442,7 +1366,7 @@ class PortfolioForgeApp {
   }
 
   /* ──────────────────────────────────────────────────────────────────────────
-     THEME PREVIEW MODAL
+     10. THEME PREVIEW MODAL
      ────────────────────────────────────────────────────────────────────────── */
 
   openThemePreviewModal(themeId) {
