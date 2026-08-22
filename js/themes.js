@@ -639,3 +639,6 @@ const PortfolioThemes = {
     }
   }
 };
+
+window.PortfolioThemes = PortfolioThemes;
+export default PortfolioThemes;
