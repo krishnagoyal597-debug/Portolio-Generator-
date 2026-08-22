@@ -176,98 +176,123 @@ class PortfolioForgeApp {
   renderLandingPage() {
     const root = document.getElementById('app-root');
     root.innerHTML = `
-      <!-- Modern Public Navigation -->
-      <nav class="navbar">
+      <!-- Clean Modern Navbar -->
+      <nav class="navbar" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);">
         <div class="container nav-container">
           <a href="#home" class="brand-logo">
             <span class="brand-sparkle">✦</span>
-            <span>PortfolioForge</span>
+            <span style="font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em;">PortfolioForge</span>
           </a>
 
           <div class="flex items-center gap-3">
             ${this.currentUser ? `
-              <a href="#dashboard" class="btn btn-primary btn-sm">Open Dashboard →</a>
+              <a href="#dashboard" class="btn btn-primary btn-sm">Dashboard →</a>
             ` : `
-              <a href="#login" class="btn btn-ghost btn-sm">Sign In</a>
-              <a href="#signup" class="btn btn-primary btn-sm">Get Started Free</a>
+              <a href="#login" class="btn btn-ghost btn-sm" style="font-weight: 600;">Login</a>
+              <a href="#signup" class="btn btn-primary btn-sm" style="font-weight: 600; padding: 0.45rem 1.1rem;">Sign Up</a>
             `}
           </div>
         </div>
       </nav>
 
-      <!-- Hero Section -->
-      <section class="hero-section">
-        <div class="hero-glow-1"></div>
-        <div class="hero-glow-2"></div>
-        
-        <div class="container">
-          <div class="hero-grid">
-            <div>
-              <div class="badge badge-glow" style="margin-bottom: 1rem;">
-                ✦ AI-Powered Resume to Portfolio Engine
-              </div>
-              <h1 class="heading-display hero-title">
-                Turn Your Resume Into <br>a Portfolio That <span class="text-gradient">Gets Noticed.</span>
-              </h1>
-              <p class="hero-subtitle">
-                Upload your resume, let AI organize your experience, choose your style, and generate a professional portfolio in minutes.
-              </p>
-              
-              <div class="flex items-center gap-3 flex-wrap">
-                <a href="${this.currentUser ? '#dashboard' : '#signup'}" class="btn btn-primary btn-lg">
-                  Create My Portfolio →
-                </a>
-                <a href="${this.currentUser ? '#dashboard' : '#login'}" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.2);">
-                  ${this.currentUser ? 'Explore Dashboard' : 'Sign In'}
-                </a>
-              </div>
+      <!-- New Two-Column Hero Section -->
+      <section style="padding: 7.5rem 0 5rem 0; background: var(--bg-primary); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -100px; right: -50px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%); pointer-events: none;"></div>
+        <div style="position: absolute; bottom: -100px; left: -50px; width: 450px; height: 450px; background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%); pointer-events: none;"></div>
 
-              <!-- Trust / Feature Indicators -->
-              <div class="flex items-center gap-6" style="margin-top: 2.5rem; font-size: 0.85rem; color: #94a3b8;">
-                <span class="flex items-center gap-2"><span style="color:#10b981;">✓</span> 100% Client-Side HTML Export</span>
-                <span class="flex items-center gap-2"><span style="color:#6366f1;">✓</span> ATS Resume Diagnostics</span>
-                <span class="flex items-center gap-2"><span style="color:#38bdf8;">✓</span> 6 Design Systems</span>
+        <div class="container">
+          <div class="hero-grid" style="align-items: center; gap: 3.5rem;">
+            
+            <!-- Left Hero Column -->
+            <div>
+              <div class="badge badge-primary" style="margin-bottom: 1.25rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;">
+                AI-Powered Portfolio Builder
+              </div>
+              
+              <h1 class="heading-display" style="font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.12; margin-bottom: 1.25rem; color: var(--text-primary); text-transform: uppercase; font-weight: 900; letter-spacing: -0.03em;">
+                Turn Your Resume <br>Into a Portfolio <br>That <span class="text-gradient">Stands Out.</span>
+              </h1>
+              
+              <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 2.25rem; max-width: 520px;">
+                Upload your resume, let AI structure your experience, choose a design, and generate a professional portfolio in minutes.
+              </p>
+
+              <div class="flex items-center gap-4 flex-wrap">
+                <a href="${this.currentUser ? '#dashboard' : '#create/1'}" class="btn btn-primary btn-lg" style="box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35); font-weight: 700;">
+                  CREATE MY PORTFOLIO →
+                </a>
+                <a href="${this.currentUser ? '#dashboard' : '#login'}" class="btn btn-secondary btn-lg" style="font-weight: 600;">
+                  ${this.currentUser ? 'EXPLORE DASHBOARD' : 'SIGN IN'}
+                </a>
               </div>
             </div>
 
-            <!-- Single Polished Hero Portfolio Mockup -->
-            <div style="display: flex; justify-content: center; align-items: center;">
-              <div style="width: 100%; max-width: 440px; background: #0f172a; border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);">
-                <!-- Mac-style Window Controls -->
-                <div style="background: #1e293b; padding: 0.65rem 1rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06);">
-                  <div class="flex items-center gap-1.5">
-                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+            <!-- Right Hero Column: One Large Polished Portfolio Browser Mockup -->
+            <div style="display: flex; justify-content: center;">
+              <div style="width: 100%; max-width: 500px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 20px; box-shadow: var(--shadow-xl); overflow: hidden; position: relative;">
+                
+                <!-- Browser Chrome Window Bar -->
+                <div style="background: var(--bg-subtle); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+                  <div class="flex items-center gap-2">
+                    <span style="width: 11px; height: 11px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+                    <span style="width: 11px; height: 11px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
+                    <span style="width: 11px; height: 11px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
                   </div>
-                  <span style="font-size: 0.75rem; color: #94a3b8; font-family: monospace;">anshikabansal.portfolioforge.app</span>
-                  <span style="font-size: 0.7rem; color: #10b981; font-weight: 700;">● LIVE</span>
+                  <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.2rem 1rem; font-size: 0.75rem; color: var(--text-secondary); font-family: var(--font-mono);">
+                    anshika.portfolioforge.app
+                  </div>
+                  <span style="font-size: 0.7rem; color: var(--accent-emerald); font-weight: 700;">● Online</span>
                 </div>
 
-                <div style="padding: 1.75rem;">
-                  <span class="badge badge-primary" style="font-size: 0.7rem; margin-bottom: 0.75rem;">Bento Grid Edition</span>
-                  <h3 style="font-weight: 800; font-size: 1.4rem; color: #ffffff; margin-bottom: 0.25rem;">Anshika Bansal</h3>
-                  <p style="font-size: 0.85rem; color: #818cf8; font-weight: 600; margin-bottom: 1rem;">Computer Science & AI Engineer</p>
-                  
-                  <p style="font-size: 0.825rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 1.25rem;">
-                    Specializing in NLP transformer pipelines, high-throughput distributed systems, and modern SaaS architecture.
+                <!-- Mockup Portfolio Content -->
+                <div style="padding: 2rem;">
+                  <div class="flex items-center justify-between" style="margin-bottom: 1.25rem;">
+                    <div class="flex items-center gap-3">
+                      <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem;">
+                        AB
+                      </div>
+                      <div>
+                        <div style="font-weight: 800; font-size: 1.25rem; color: var(--text-primary); line-height: 1.2;">Anshika Bansal</div>
+                        <div style="font-size: 0.8rem; color: var(--primary); font-weight: 600;">AI & Systems Engineer</div>
+                      </div>
+                    </div>
+                    <span class="badge badge-primary" style="font-size: 0.7rem;">Bento Edition</span>
+                  </div>
+
+                  <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem;">
+                    Computer Science Engineer specializing in AI/ML architectures, high-performance APIs, and intelligent distributed systems.
                   </p>
 
-                  <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 0.85rem; margin-bottom: 1.25rem;">
-                    <div style="font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin-bottom: 0.4rem;">Skills Arsenal</div>
+                  <!-- Skills Section in Mockup -->
+                  <div style="margin-bottom: 1.25rem;">
+                    <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.4rem;">Skills Arsenal</div>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-                      <span style="font-size: 0.725rem; background: rgba(79,70,229,0.2); color: #a5b4fc; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 600;">Python</span>
-                      <span style="font-size: 0.725rem; background: rgba(79,70,229,0.2); color: #a5b4fc; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 600;">FastAPI</span>
-                      <span style="font-size: 0.725rem; background: rgba(79,70,229,0.2); color: #a5b4fc; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 600;">React</span>
-                      <span style="font-size: 0.725rem; background: rgba(79,70,229,0.2); color: #a5b4fc; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 600;">TensorFlow</span>
+                      <span class="tag-chip" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">Python</span>
+                      <span class="tag-chip" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">FastAPI</span>
+                      <span class="tag-chip" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">React</span>
+                      <span class="tag-chip" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">TensorFlow</span>
+                      <span class="tag-chip" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">PostgreSQL</span>
                     </div>
                   </div>
 
-                  <div class="flex justify-between items-center" style="font-size: 0.8rem;">
-                    <span style="color: #64748b;">Ready in 60 seconds</span>
-                    <a href="${this.currentUser ? '#create/1' : '#signup'}" style="color: #6366f1; font-weight: 700;">Build Yours Free ↗</a>
+                  <!-- Featured Project Box in Mockup -->
+                  <div style="background: var(--bg-subtle); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin-bottom: 1.25rem;">
+                    <div class="flex justify-between items-center" style="margin-bottom: 0.25rem;">
+                      <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">PortfolioForge AI</span>
+                      <span style="font-size: 0.7rem; color: var(--primary); font-weight: 600;">Featured ↗</span>
+                    </div>
+                    <p style="font-size: 0.775rem; color: var(--text-secondary); line-height: 1.4;">
+                      AI-powered resume compiler generating responsive HTML portfolios across 6 distinct themes.
+                    </p>
+                  </div>
+
+                  <!-- Bottom Meta Strip -->
+                  <div class="flex justify-between items-center" style="border-top: 1px solid var(--border-color); padding-top: 0.85rem; font-size: 0.775rem; color: var(--text-muted);">
+                    <span>⚡ 100% Client Exportable</span>
+                    <span style="color: var(--primary); font-weight: 700;">Live HTML Preview</span>
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -275,15 +300,43 @@ class PortfolioForgeApp {
         </div>
       </section>
 
+      <!-- Minimal Trust / Supporting Line Section -->
+      <section style="padding: 3rem 0; background: var(--bg-surface); border-bottom: 1px solid var(--border-color); text-align: center;">
+        <div class="container">
+          <p style="font-size: 1.05rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 1.25rem; letter-spacing: -0.01em;">
+            "From resume to portfolio — powered by AI."
+          </p>
+          <div class="flex items-center justify-center gap-8 md-flex-col" style="font-size: 0.85rem; color: var(--text-muted);">
+            <span class="flex items-center gap-2"><span style="color: var(--accent-emerald); font-weight: 800;">✓</span> Instant Resume Structuring</span>
+            <span class="flex items-center gap-2"><span style="color: var(--primary); font-weight: 800;">✓</span> 6 Unique Design Systems</span>
+            <span class="flex items-center gap-2"><span style="color: var(--accent-cyan); font-weight: 800;">✓</span> Single-File HTML Export</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Simple Bottom CTA Section -->
+      <section style="padding: 5rem 0; background: var(--bg-primary); text-align: center; border-bottom: 1px solid var(--border-color);">
+        <div class="container-narrow">
+          <h2 class="heading-display" style="font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: -0.02em;">
+            Ready to Build Your Portfolio?
+          </h2>
+          <p style="font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+            Upload your resume, customize your theme, and get a recruiter-ready portfolio website in seconds.
+          </p>
+          <a href="${this.currentUser ? '#dashboard' : '#create/1'}" class="btn btn-primary btn-lg" style="font-weight: 700; box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);">
+            CREATE MY PORTFOLIO →
+          </a>
+        </div>
+      </section>
+
       <!-- Minimal Public Footer -->
-      <footer style="background: #090d16; color: #64748b; padding: 2.5rem 0; font-size: 0.85rem; border-top: 1px solid #1e293b;">
-        <div class="container flex justify-between items-center md-flex-col gap-4">
+      <footer style="background: var(--bg-surface); padding: 2.5rem 0; font-size: 0.85rem; color: var(--text-muted);">
+        <div class="container flex justify-between items-center md-flex-col gap-3">
           <div class="flex items-center gap-2">
-            <span style="color:#4f46e5; font-weight:800; font-size:1.1rem;">✦ PortfolioForge</span>
-            <span>— AI Developer Portfolio Engine</span>
+            <span style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">✦ PortfolioForge</span>
           </div>
           <div>
-            Built with Clean HTML5, CSS3, ES6 JavaScript & JSON.
+            © PortfolioForge. All rights reserved.
           </div>
         </div>
       </footer>
