@@ -27,7 +27,7 @@ const Education = () => {
           <div key={edu.id} className="relative group">
             
             {/* Glowing Timeline Node */}
-            <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 border-4 border-[#090014] shadow-[0_0_15px_rgba(236,72,153,0.8)] group-hover:scale-125 transition-transform duration-300 flex items-center justify-center">
+            <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 border-4 border-[#f6f5fb] shadow-[0_0_15px_rgba(236,72,153,0.8)] group-hover:scale-125 transition-transform duration-300 flex items-center justify-center">
               <div className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
             </div>
 

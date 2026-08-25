@@ -15,7 +15,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   return (
-    <div className="relative min-h-screen bg-[#090014] text-gray-100 font-sans selection:bg-purple-600 selection:text-white">
+    <div className="relative min-h-screen bg-[#f6f5fb] text-slate-900 font-sans selection:bg-purple-600 selection:text-white">
       {/* Background Animated Blobs & Glow Effects */}
       <FloatingShapes />
 

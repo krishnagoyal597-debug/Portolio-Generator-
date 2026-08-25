@@ -29,7 +29,7 @@ const ProjectModal = ({ project, onClose }) => {
       {/* Frosted Glass Backdrop overlay */}
       <div 
         onClick={onClose}
-        className="fixed inset-0 bg-[#090014]/80 backdrop-blur-md transition-opacity"
+        className="fixed inset-0 bg-slate-900/45 backdrop-blur-md transition-opacity"
       />
 
       {/* Glass Modal Box */}

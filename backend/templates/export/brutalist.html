@@ -1,0 +1,175 @@
+{% extends "export/base.html" %}
+
+{% block extra_head %}
+<style>
+  .brutalist-border { border: 4px solid #000000; }
+  .brutalist-shadow { box-shadow: 6px 6px 0px 0px #000000; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-[#f9f9f9] text-black font-sans pb-24 selection:bg-yellow-300 selection:text-black">
+  
+  <!-- HEADER -->
+  <header class="bg-black text-white p-6 border-b-8 border-black flex flex-col md:flex-row justify-between items-start md:items-center">
+    <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter">{{ data.name }}</h1>
+    <div class="flex gap-4 font-black text-xl uppercase mt-4 md:mt-0">
+      {% if data.email %}<a href="mailto:{{ data.email }}" class="hover:underline text-yellow-300">Email</a>{% endif %}
+      {% if data.github %}<a href="https://{{ data.github }}" target="_blank" class="hover:underline">GitHub</a>{% endif %}
+      {% if data.linkedin %}<a href="https://{{ data.linkedin }}" target="_blank" class="hover:underline">LinkedIn</a>{% endif %}
+    </div>
+  </header>
+
+  <main class="px-6 mt-12 max-w-screen-xl mx-auto space-y-16">
+    
+    <!-- HERO -->
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+      <div class="md:col-span-8">
+        <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">{{ data.title }}</h2>
+      </div>
+      <div class="md:col-span-4 bg-yellow-300 p-6 brutalist-border brutalist-shadow font-bold text-xl uppercase">
+        {{ data.tagline or 'Building high impact digital solutions.' }}
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    {% if data.about %}
+    <section class="brutalist-border bg-white p-8 brutalist-shadow">
+      <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-4">01 // ABOUT ME</h3>
+      <p class="text-xl font-bold uppercase leading-relaxed">{{ data.about }}</p>
+    </section>
+    {% endif %}
+
+    <!-- SKILLS -->
+    {% if data.skills or data.skillGroups %}
+    <section class="brutalist-border bg-white p-8 brutalist-shadow">
+      <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-6">02 // SKILLS & TECH STACK</h3>
+      <div class="flex flex-wrap gap-3">
+        {% for skill in data.skills %}
+        <span class="px-4 py-2 bg-yellow-300 font-black text-sm uppercase brutalist-border brutalist-shadow">{{ skill }}</span>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- PROJECTS -->
+    {% if data.projects %}
+    <section>
+      <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-8">03 // SELECTED WORK</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {% for proj in data.projects %}
+        <div class="brutalist-border bg-white p-8 brutalist-shadow flex flex-col justify-between">
+          <div>
+            {% if proj.image %}
+            <div class="border-4 border-black mb-4 overflow-hidden max-h-56 bg-black">
+              <img src="{{ proj.image }}" alt="{{ proj.name }}" class="w-full h-48 object-cover" />
+            </div>
+            {% endif %}
+            <h4 class="text-3xl font-black uppercase mb-3">{{ proj.name }}</h4>
+            <p class="font-bold text-base uppercase mb-4 text-gray-700 leading-snug">{{ proj.description }}</p>
+          </div>
+          <div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {% for tech in proj.technologies %}
+              <span class="px-2.5 py-1 bg-black text-white text-xs font-black uppercase">{{ tech }}</span>
+              {% endfor %}
+            </div>
+            <div class="flex gap-4 font-black text-sm uppercase pt-4 border-t-4 border-black">
+              {% if proj.github %}<a href="https://{{ proj.github }}" target="_blank" class="underline">Code ↗</a>{% endif %}
+              {% if proj.demo %}<a href="https://{{ proj.demo }}" target="_blank" class="underline text-blue-600">Demo ↗</a>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if data.experience %}
+    <section class="brutalist-border bg-white p-8 brutalist-shadow">
+      <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-8">04 // EXPERIENCE</h3>
+      <div class="space-y-8">
+        {% for exp in data.experience %}
+        <div class="border-b-4 border-black pb-6 last:border-b-0">
+          <div class="flex flex-col md:flex-row justify-between mb-2">
+            <h4 class="text-2xl font-black uppercase">{{ exp.position }} @ {{ exp.company }}</h4>
+            <span class="font-bold text-sm bg-yellow-300 px-3 py-1 brutalist-border h-fit w-fit">{{ exp.startDate }} — {{ 'Present' if exp.current else exp.endDate }}</span>
+          </div>
+          <p class="font-bold text-gray-800 uppercase whitespace-pre-line text-sm leading-relaxed">{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {% if data.education %}
+      <section class="brutalist-border bg-white p-8 brutalist-shadow">
+        <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-6">05 // EDUCATION</h3>
+        {% for edu in data.education %}
+        <div class="mb-4">
+          <h4 class="text-xl font-black uppercase">{{ edu.degree }}</h4>
+          <div class="font-bold text-sm text-gray-700 uppercase">{{ edu.university }} ({{ edu.startYear }}–{{ edu.endYear }})</div>
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      {% if data.certifications %}
+      <section class="brutalist-border bg-white p-8 brutalist-shadow">
+        <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-6">06 // CERTIFICATIONS</h3>
+        {% for cert in data.certifications %}
+        <div class="mb-4 font-bold text-base uppercase">
+          {% if cert.image %}
+          <div class="border-2 border-black mb-2 overflow-hidden max-h-32 bg-black max-w-xs">
+            <img src="{{ cert.image }}" alt="{{ cert.name }}" class="w-full h-24 object-cover" />
+          </div>
+          {% endif %}
+          🏆 {{ cert.name }} <span class="text-xs text-gray-500">({{ cert.issuer }})</span>
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+    </div>
+
+    <!-- ACHIEVEMENTS & ACTIVITIES -->
+    {% if data.achievements or data.activities %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {% if data.achievements %}
+      <section class="brutalist-border bg-white p-8 brutalist-shadow">
+        <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-6">07 // ACHIEVEMENTS &amp; HONORS</h3>
+        {% for ach in data.achievements %}
+        <div class="mb-4 border-l-4 border-black pl-3">
+          <h4 class="text-lg font-black uppercase">{{ ach.title }}</h4>
+          {% if ach.description %}<p class="font-bold text-xs uppercase text-gray-700 mt-1">{{ ach.description }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      {% if data.activities %}
+      <section class="brutalist-border bg-white p-8 brutalist-shadow">
+        <h3 class="text-sm font-black uppercase tracking-widest bg-black text-white px-3 py-1 inline-block mb-6">08 // ACTIVITIES &amp; LEADERSHIP</h3>
+        {% for act in data.activities %}
+        <div class="mb-4 border-l-4 border-yellow-400 pl-3">
+          <h4 class="text-lg font-black uppercase">{{ act.title or act.role }}</h4>
+          <div class="text-xs font-bold text-gray-600 uppercase">{{ act.organization }} {% if act.date %}({{ act.date }}){% endif %}</div>
+          {% if act.description %}<p class="font-bold text-xs uppercase text-gray-700 mt-1">{{ act.description }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white p-8 text-center brutalist-border">
+      <h3 class="text-3xl font-black uppercase mb-4">LET'S CONNECT</h3>
+      {% if data.email %}<a href="mailto:{{ data.email }}" class="text-yellow-300 text-xl font-black underline">{{ data.email }}</a>{% endif %}
+    </footer>
+
+  </main>
+</div>
+{% endblock %}

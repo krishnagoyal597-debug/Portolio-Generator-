@@ -1,0 +1,217 @@
+{% extends "export/base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-50 text-slate-800 font-sans p-4 md:p-8">
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- 1. HERO & ABOUT GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="md:col-span-2 bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 text-white rounded-3xl p-8 md:p-12 shadow-lg relative overflow-hidden flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-6 mb-6">
+            {% if data.profileImage or data.personalInfo.profileImage %}
+            <img src="{{ data.profileImage or data.personalInfo.profileImage }}" alt="{{ data.name }}" class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-white/30 shadow-md flex-shrink-0" />
+            {% endif %}
+            <div>
+              <span class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">
+                📍 {{ data.location or 'Available for Work' }}
+              </span>
+              <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">Hi, I'm {{ data.name }}</h1>
+            </div>
+          </div>
+          <h2 class="text-xl md:text-2xl text-indigo-100 font-medium max-w-xl mb-8">{{ data.title }}</h2>
+        </div>
+        <div class="flex flex-wrap gap-4 pt-4 border-t border-white/10">
+          {% if data.email %}<a href="mailto:{{ data.email }}" class="bg-white text-indigo-700 px-6 py-3 rounded-xl font-bold hover:bg-indigo-50 transition-colors shadow-sm">✉️ Contact Me</a>{% endif %}
+          {% if data.github %}<a href="https://{{ data.github }}" target="_blank" class="bg-white/10 text-white px-6 py-3 rounded-xl font-semibold backdrop-blur-sm hover:bg-white/20 transition-colors">GitHub ↗</a>{% endif %}
+          {% if data.linkedin %}<a href="https://{{ data.linkedin }}" target="_blank" class="bg-white/10 text-white px-6 py-3 rounded-xl font-semibold backdrop-blur-sm hover:bg-white/20 transition-colors">LinkedIn ↗</a>{% endif %}
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8 flex flex-col justify-between">
+        <div>
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">About Me</h3>
+          <p class="text-slate-600 leading-relaxed font-medium text-base">{{ data.about or data.tagline }}</p>
+        </div>
+        <div class="mt-6 pt-6 border-t border-slate-100 space-y-2 text-sm text-slate-500">
+          {% if data.phone %}<div>📞 <strong>Phone:</strong> {{ data.phone }}</div>{% endif %}
+          {% if data.website %}<div>🌐 <strong>Website:</strong> <a href="https://{{ data.website }}" class="text-indigo-600 font-semibold">{{ data.website }}</a></div>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. CATEGORIZED SKILLS -->
+    {% if data.skillGroups or data.skills %}
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Skills & Tech Stack</h3>
+      {% if data.skillGroups %}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for group in data.skillGroups %}
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+          <h4 class="font-bold text-slate-800 text-sm mb-3">{{ group.category }}</h4>
+          <div class="flex flex-wrap gap-2">
+            {% for skill in group.skills %}
+            <span class="px-3 py-1 bg-white text-indigo-700 border border-indigo-100 rounded-lg text-xs font-semibold shadow-2xs">{{ skill }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="flex flex-wrap gap-2">
+        {% for skill in data.skills %}
+        <span class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-xl text-sm font-semibold border border-indigo-100">{{ skill }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- 3. FEATURED PROJECTS -->
+    {% if data.projects %}
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Selected Projects</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for proj in data.projects %}
+        <div class="border border-slate-100 bg-slate-50 p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div>
+            {% if proj.image %}
+            <div class="rounded-xl overflow-hidden mb-4 border border-slate-200/60 max-h-48">
+              <img src="{{ proj.image }}" alt="{{ proj.name }}" class="w-full h-44 object-cover" />
+            </div>
+            {% endif %}
+            <div class="flex justify-between items-start mb-3">
+              <h4 class="text-xl font-bold text-slate-900">{{ proj.name }}</h4>
+              {% if proj.featured %}<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded-full text-xs font-bold">Featured</span>{% endif %}
+            </div>
+            <p class="text-slate-600 text-sm mb-4 leading-relaxed">{{ proj.description }}</p>
+            {% if proj.highlights %}
+            <div class="text-xs font-semibold text-slate-500 bg-white p-3 rounded-xl border border-slate-100 mb-4">💡 {{ proj.highlights }}</div>
+            {% endif %}
+          </div>
+          <div>
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              {% for tech in proj.technologies %}
+              <span class="px-2.5 py-1 bg-white text-indigo-600 rounded-lg text-xs font-medium border border-indigo-100">{{ tech }}</span>
+              {% endfor %}
+            </div>
+            <div class="flex gap-4 pt-3 border-t border-slate-200/60 text-xs font-bold">
+              {% if proj.github %}<a href="https://{{ proj.github }}" target="_blank" class="text-indigo-600 hover:underline">GitHub Code ↗</a>{% endif %}
+              {% if proj.demo %}<a href="https://{{ proj.demo }}" target="_blank" class="text-emerald-600 hover:underline">Live Demo ↗</a>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 4. WORK EXPERIENCE -->
+    {% if data.experience %}
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Work Experience</h3>
+      <div class="space-y-6">
+        {% for exp in data.experience %}
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col md:flex-row justify-between gap-4">
+          <div>
+            <h4 class="text-lg font-bold text-slate-900">{{ exp.position }}</h4>
+            <div class="text-indigo-600 font-semibold text-sm mb-2">{{ exp.company }} &middot; <span class="text-slate-500 font-normal">{{ exp.location }}</span></div>
+            <p class="text-slate-600 text-sm whitespace-pre-line leading-relaxed">{{ exp.description }}</p>
+          </div>
+          <div class="text-xs font-bold text-slate-400 bg-white px-3 py-1.5 rounded-lg border border-slate-100 h-fit w-fit whitespace-nowrap">
+            {{ exp.startDate }} — {{ 'Present' if exp.current else exp.endDate }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 5. EDUCATION & CERTIFICATIONS GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% if data.education %}
+      <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Education</h3>
+        <div class="space-y-6">
+          {% for edu in data.education %}
+          <div class="border-l-2 border-indigo-500 pl-4">
+            <h4 class="font-bold text-slate-900 text-base">{{ edu.degree }}</h4>
+            <div class="text-indigo-600 text-sm font-medium">{{ edu.university }}</div>
+            <div class="text-slate-400 text-xs mt-1">{{ edu.startYear }} — {{ edu.endYear }} {% if edu.grade %} &middot; {{ edu.grade }}{% endif %}</div>
+            {% if edu.description %}<p class="text-slate-600 text-xs mt-2 leading-relaxed">{{ edu.description }}</p>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if data.certifications %}
+      <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Certifications</h3>
+        <div class="space-y-4">
+          {% for cert in data.certifications %}
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            {% if cert.image %}
+            <div class="rounded-lg overflow-hidden mb-3 border border-slate-200/60 max-h-32">
+              <img src="{{ cert.image }}" alt="{{ cert.name }}" class="w-full h-28 object-cover" />
+            </div>
+            {% endif %}
+            <h4 class="font-bold text-slate-800 text-sm">{{ cert.name }}</h4>
+            <div class="text-slate-500 text-xs mt-1">{{ cert.issuer }} &middot; {{ cert.date }}</div>
+            {% if cert.link %}<a href="{{ cert.link }}" target="_blank" class="text-xs text-indigo-600 font-semibold hover:underline mt-2 inline-block">Verify ↗</a>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- 6. ACHIEVEMENTS -->
+    {% if data.achievements %}
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Achievements & Awards</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {% for ach in data.achievements %}
+        <div class="p-5 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl border border-amber-100">
+          <h4 class="font-bold text-amber-900 text-base mb-1">🏆 {{ ach.title }}</h4>
+          <p class="text-amber-800 text-xs leading-relaxed mb-2">{{ ach.description }}</p>
+          <span class="text-amber-700 text-2xs font-bold uppercase tracking-wider">{{ ach.date }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 6.5 ACTIVITIES & LEADERSHIP -->
+    {% if data.activities %}
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Activities & Leadership</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {% for act in data.activities %}
+        <div class="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-100">
+          <h4 class="font-bold text-emerald-900 text-base mb-1">🌟 {{ act.title or act.role }}</h4>
+          <div class="text-emerald-700 text-xs font-medium mb-2">{{ act.organization }} {% if act.date %}&middot; {{ act.date }}{% endif %}</div>
+          <p class="text-emerald-800 text-xs leading-relaxed">{{ act.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 7. CONTACT FOOTER -->
+    <div class="bg-slate-900 text-white rounded-3xl p-8 md:p-12 text-center space-y-6">
+      <h3 class="text-3xl font-extrabold">Let's Work Together</h3>
+      <p class="text-slate-400 max-w-lg mx-auto text-sm">Have a project in mind or interested in collaborating? Reach out anytime!</p>
+      {% if data.email %}
+      <a href="mailto:{{ data.email }}" class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3.5 rounded-xl font-bold transition-colors">
+        Send Email: {{ data.email }}
+      </a>
+      {% endif %}
+      <div class="pt-8 border-t border-slate-800 text-xs text-slate-500">
+        &copy; {{ data.name }}. All rights reserved. Generated with PortfolioForge.
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

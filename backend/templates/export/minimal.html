@@ -1,0 +1,153 @@
+{% extends "export/base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
+  <div class="max-w-4xl mx-auto px-6 sm:px-12 py-16 md:py-24 space-y-16">
+    
+    <!-- HEADER -->
+    <header className="mb-12">
+      <h1 class="text-5xl md:text-6xl font-serif tracking-tight mb-4 text-black">{{ data.name }}</h1>
+      <p class="text-xl text-gray-600 font-light max-w-2xl leading-relaxed mb-6">{{ data.title }} &middot; {{ data.location }}</p>
+      <div class="flex flex-wrap gap-6 text-sm text-gray-500 font-medium">
+        {% if data.email %}<a href="mailto:{{ data.email }}" class="hover:text-black">Email: {{ data.email }}</a>{% endif %}
+        {% if data.github %}<a href="https://{{ data.github }}" target="_blank" class="hover:text-black">GitHub ↗</a>{% endif %}
+        {% if data.linkedin %}<a href="https://{{ data.linkedin }}" target="_blank" class="hover:text-black">LinkedIn ↗</a>{% endif %}
+      </div>
+    </header>
+
+    <hr class="border-gray-200" />
+
+    <!-- ABOUT -->
+    {% if data.about %}
+    <section>
+      <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-6">About</h2>
+      <p class="text-base text-gray-700 leading-relaxed font-light">{{ data.about }}</p>
+    </section>
+    <hr class="border-gray-200" />
+    {% endif %}
+
+    <!-- SKILLS -->
+    {% if data.skills or data.skillGroups %}
+    <section>
+      <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-6">Skills & Capabilities</h2>
+      {% if data.skillGroups %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+        {% for group in data.skillGroups %}
+        <div>
+          <h3 class="font-bold text-gray-900 mb-2">{{ group.category }}</h3>
+          <p class="text-gray-600 font-light leading-relaxed">{{ group.skills | join(', ') }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-sm text-gray-700 font-light leading-relaxed">{{ data.skills | join(' &middot; ') }}</p>
+      {% endif %}
+    </section>
+    <hr class="border-gray-200" />
+    {% endif %}
+
+    <!-- PROJECTS -->
+    {% if data.projects %}
+    <section>
+      <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-8">Selected Projects</h2>
+      <div class="space-y-12">
+        {% for proj in data.projects %}
+        <div>
+          <div class="flex justify-between items-baseline mb-2">
+            <h3 class="text-lg font-medium text-black">{{ proj.name }}</h3>
+            {% if proj.github %}<a href="https://{{ proj.github }}" target="_blank" class="text-xs text-gray-400 hover:text-black">Source Code ↗</a>{% endif %}
+          </div>
+          <p class="text-sm text-gray-600 font-light mb-3 leading-relaxed">{{ proj.description }}</p>
+          <div class="text-xs text-gray-400 font-mono">{{ proj.technologies | join(' · ') }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <hr class="border-gray-200" />
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if data.experience %}
+    <section>
+      <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-8">Work Experience</h2>
+      <div class="space-y-10">
+        {% for exp in data.experience %}
+        <div>
+          <div class="flex justify-between items-baseline mb-1">
+            <h3 class="text-base font-medium text-black">{{ exp.position }} — <span class="text-gray-500 font-normal">{{ exp.company }}</span></h3>
+            <span class="text-xs text-gray-400 font-mono">{{ exp.startDate }} – {{ 'Present' if exp.current else exp.endDate }}</span>
+          </div>
+          <p class="text-sm text-gray-600 font-light leading-relaxed whitespace-pre-line">{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <hr class="border-gray-200" />
+    {% endif %}
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {% if data.education %}
+      <section>
+        <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-6">Education</h2>
+        {% for edu in data.education %}
+        <div class="mb-4">
+          <h3 class="text-base font-medium text-black">{{ edu.degree }}</h3>
+          <div class="text-sm text-gray-500">{{ edu.university }} ({{ edu.startYear }}–{{ edu.endYear }})</div>
+          {% if edu.grade %}<div class="text-xs text-gray-400 mt-0.5">{{ edu.grade }}</div>{% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      {% if data.certifications %}
+      <section>
+        <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-6">Certifications</h2>
+        {% for cert in data.certifications %}
+        <div class="mb-3 text-sm text-gray-700">
+          <strong>{{ cert.name }}</strong> &middot; <span class="text-gray-500">{{ cert.issuer }}</span>
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+    </div>
+
+    <!-- ACHIEVEMENTS & ACTIVITIES -->
+    {% if data.achievements or data.activities %}
+    <hr class="border-gray-200" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {% if data.achievements %}
+      <section>
+        <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-6">Honors &amp; Awards</h2>
+        {% for ach in data.achievements %}
+        <div class="mb-4">
+          <h3 class="text-sm font-medium text-black">{{ ach.title }}</h3>
+          {% if ach.description %}<p class="text-xs text-gray-600 font-light mt-1">{{ ach.description }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      {% if data.activities %}
+      <section>
+        <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-6">Leadership &amp; Activities</h2>
+        {% for act in data.activities %}
+        <div class="mb-4">
+          <h3 class="text-sm font-medium text-black">{{ act.title or act.role }}</h3>
+          <div class="text-xs text-gray-500">{{ act.organization }} {% if act.date %}({{ act.date }}){% endif %}</div>
+          {% if act.description %}<p class="text-xs text-gray-600 font-light mt-1">{{ act.description }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- FOOTER -->
+    <footer class="pt-12 border-t border-gray-200 text-center text-xs text-gray-400 font-light">
+      &copy; {{ data.name }}. All rights reserved. Generated with PortfolioForge.
+    </footer>
+
+  </div>
+</div>
+{% endblock %}

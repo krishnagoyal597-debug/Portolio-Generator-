@@ -7,30 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies
 node_modules
 dist
 dist-ssr
 *.local
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.pytest_cache/
-.coverage
-htmlcov/
-venv/
-env/
-ENV/
-
-# Secrets & Environment Variables
-.env
-*.env
-backend/.env
-backend/firebase-credentials.json
-firebase-credentials.json
 
 # Editor directories and files
 .vscode/*

@@ -1,0 +1,123 @@
+{
+  "name": "PortfolioForge — Complete AI Portfolio Platform",
+  "version": "2.0.0",
+  "author": "Anshika Bansal",
+  "description": "AI-Powered Resume-to-Portfolio Generation Platform (Pure HTML/CSS/JS/JSON)",
+  "features": [
+    "100% Native HTML5, CSS3, Vanilla ES6+ JavaScript, and JSON",
+    "Zero build steps required — runs directly in browser or GitHub Pages",
+    "6 Radically Different Interactive Portfolio Themes (Brutalist, Bento, Minimal, Spatial, Glassmorphic, Terminal)",
+    "6-Step Intelligent Creation Wizard with Resume Parser & Section Quality Scorer",
+    "Gemini Prompt Generator & Structured JSON Exporter",
+    "Interactive User Dashboard & Management Suite",
+    "Admin Analytics Dashboard with SVG Trend Charts & User Moderation",
+    "One-click Standalone Single-File HTML Portfolio Downloader"
+  ],
+  "sampleProfile": {
+    "name": "Anshika Bansal",
+    "title": "Computer Science & AI Engineer",
+    "tagline": "Building intelligent systems at the intersection of AI and software engineering.",
+    "email": "anshika.bansal@email.com",
+    "phone": "+91 98765 43210",
+    "location": "Delhi, India",
+    "github": "github.com/anshikabansal",
+    "linkedin": "linkedin.com/in/anshikabansal",
+    "website": "anshikabansal.dev",
+    "about": "I'm a Computer Science engineer at Delhi Technological University specializing in AI/ML and full-stack development. Passionate about building products that solve real-world challenges — from transformer-based resume analyzers to high-throughput distributed systems. Currently seeking opportunities in software engineering and applied AI.",
+    "skills": [
+      "Python", "Java", "JavaScript", "TypeScript", "C++", "SQL",
+      "React", "FastAPI", "TensorFlow", "PyTorch", "Hugging Face",
+      "Docker", "AWS", "PostgreSQL", "MongoDB", "Redis", "Git", "Tailwind CSS"
+    ],
+    "skillGroups": [
+      { "category": "Languages", "skills": ["Python", "Java", "JavaScript", "TypeScript", "C++", "SQL"] },
+      { "category": "AI / ML & NLP", "skills": ["TensorFlow", "PyTorch", "scikit-learn", "Hugging Face", "LangChain", "YOLOv8"] },
+      { "category": "Web & Backend", "skills": ["FastAPI", "React", "Node.js", "Express", "REST APIs", "Tailwind CSS"] },
+      { "category": "Cloud & Databases", "skills": ["PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "Git"] }
+    ],
+    "experience": [
+      {
+        "id": "exp-1",
+        "company": "TechSolutions Pvt. Ltd.",
+        "position": "Software Engineering Intern",
+        "location": "Delhi, India",
+        "startDate": "June 2024",
+        "endDate": "August 2024",
+        "current": false,
+        "description": "• Architected high-performance FastAPI endpoints reducing latency by 35% across 50k+ daily queries.\n• Integrated transformer models for NLP document classification and automated entity extraction.\n• Built reactive analytics dashboards and telemetry visualizations."
+      }
+    ],
+    "education": [
+      {
+        "id": "edu-1",
+        "degree": "B.Tech in Computer Science & Engineering (AI Specialization)",
+        "university": "Delhi Technological University",
+        "location": "Delhi, India",
+        "startYear": "2021",
+        "endYear": "2025",
+        "grade": "CGPA: 8.8 / 10",
+        "description": "Specialization in Artificial Intelligence & Machine Learning. Relevant coursework: Data Structures, Algorithms, Distributed Computing, Deep Learning, NLP."
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-1",
+        "name": "PortfolioForge",
+        "featured": true,
+        "description": "AI-powered resume-to-portfolio engine that ingests unstructured TXT resumes, diagnoses missing content, and generates six distinct responsive HTML portfolios.",
+        "technologies": ["Vanilla JS", "FastAPI", "Gemini API", "HTML5", "CSS3"],
+        "github": "https://github.com/anshikabansal/portfolioforge",
+        "demo": "https://portfolioforge.dev",
+        "highlights": "6 Distinct Themes · 100% Client Exportable",
+        "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        "id": "proj-2",
+        "name": "SmartResume AI",
+        "featured": true,
+        "description": "Transformer-driven resume diagnostics tool with semantic skill gap analysis and automated ATS optimization recommendations.",
+        "technologies": ["Python", "Hugging Face", "FastAPI", "React", "PostgreSQL"],
+        "github": "https://github.com/anshikabansal/smartresume-ai",
+        "demo": "https://smartresume.demo",
+        "highlights": "94.2% Diagnostic Accuracy · 1,500+ Resumes",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        "id": "proj-3",
+        "name": "CodeCollab Studio",
+        "featured": false,
+        "description": "Real-time collaborative code editor with live syntax highlighting for 20+ languages, CRDT conflict resolution, and in-browser execution.",
+        "technologies": ["JavaScript", "WebSockets", "Node.js", "Redis"],
+        "github": "https://github.com/anshikabansal/codecollab",
+        "demo": "https://codecollab.live",
+        "highlights": "<50ms Sync Latency · 50+ Concurrent Devs",
+        "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        "id": "proj-4",
+        "name": "VisionGuard AI",
+        "featured": false,
+        "description": "Computer vision surveillance system utilizing YOLOv8 for industrial PPE compliance and real-time hazard notification.",
+        "technologies": ["Python", "YOLOv8", "OpenCV", "FastAPI"],
+        "github": "https://github.com/anshikabansal/visionguard",
+        "demo": "",
+        "highlights": "97.5% Detection Precision · 30 FPS Stream",
+        "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80"
+      }
+    ],
+    "certifications": [
+      { "id": "cert-1", "name": "Google Data Analytics Professional Certificate", "issuer": "Google / Coursera", "date": "2024", "image": "https://images.unsplash.com/photo-1589330694653-ded6df03f754?auto=format&fit=crop&w=600&q=80" },
+      { "id": "cert-2", "name": "AWS Certified Cloud Practitioner", "issuer": "Amazon Web Services", "date": "2023", "image": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=600&q=80" },
+      { "id": "cert-3", "name": "Deep Learning Specialization", "issuer": "DeepLearning.AI", "date": "2024", "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" }
+    ],
+    "achievements": [
+      { "id": "ach-1", "title": "Smart India Hackathon 2024 — National Finalist", "description": "Ranked among top 10 teams out of 50,000+ national applicants for an AI agricultural triage system.", "date": "2024" },
+      { "id": "ach-2", "title": "Dean's Academic Excellence Award", "description": "Recognized for maintaining top 1% academic standing for 6 consecutive trimesters.", "date": "2022–2025" },
+      { "id": "ach-3", "title": "Open Source Contributor", "description": "Over 50 merged pull requests across TensorFlow, LangChain, and developer tooling ecosystems.", "date": "2023–2025" }
+    ],
+    "activities": [
+      { "id": "act-1", "title": "Technical Lead & Mentor", "organization": "ACM Student Chapter", "date": "2023–2024", "description": "Mentored 150+ students in full-stack development and organized annual 36-hour national collegiate hackathon." }
+    ],
+    "profileImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400&h=400"
+  }
+}

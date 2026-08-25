@@ -14,7 +14,7 @@ const ProjectCard = ({ project, onSelectProject }) => {
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#090014] via-[#090014]/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent opacity-85 group-hover:opacity-60 transition-opacity" />
 
         {/* Category Pill */}
         <span className="absolute top-4 left-4 px-3 py-1 rounded-full glass-pill text-xs font-bold text-purple-200 uppercase tracking-wider border border-purple-400/30">
